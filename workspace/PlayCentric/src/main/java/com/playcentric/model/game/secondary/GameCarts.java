@@ -1,8 +1,6 @@
-package com.playcentric.model.game.primary;
+package com.playcentric.model.game.secondary;
 
 import java.time.LocalDateTime;
-
-import com.playcentric.model.game.secondary.GameAndMemId;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
