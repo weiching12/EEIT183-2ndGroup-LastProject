@@ -2,6 +2,9 @@ package com.playcentric.model.prop;
 
 import java.sql.Date;
 
+import com.playcentric.model.ImageLib;
+import com.playcentric.model.game.primary.Game;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +30,6 @@ public class Props {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer propId;
-    
 	private String propName;
     private String propRarity;
     private String propDescription;
@@ -36,12 +38,19 @@ public class Props {
     private Date updatedTime;
 
 	
-//  FK
-//	private Game game;
+//  FK 遊戲
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gameId", referencedColumnName = "gameId", insertable = false, updatable = false)
+	private Game game;
     
-//  FK
+//  FK 道具種類
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProptypeId", referencedColumnName = "ProptypeId", insertable = false, updatable = false)
 	private PropType propType;
-	
+
+//  FK 圖片
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "imageId", referencedColumnName = "imageId", insertable = false, updatable = false)
+	private ImageLib imageLib;
+    
 }
