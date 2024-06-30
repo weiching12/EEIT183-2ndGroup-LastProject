@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity @Table(name = "gameWishlist")
+//@Entity @Table(name = "gameWishlist")
 @IdClass(GameAndMemId.class)
 public class GameWishlist {
 	

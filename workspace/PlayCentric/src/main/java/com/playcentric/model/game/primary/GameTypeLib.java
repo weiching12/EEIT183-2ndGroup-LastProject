@@ -17,8 +17,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-@Table(name = "gameTypeLib")
+//@Entity
+//@Table(name = "gameTypeLib")
 public class GameTypeLib {
 	
 	@Id

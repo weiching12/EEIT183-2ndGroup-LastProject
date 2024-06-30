@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity @Table(name = "imageLib")
+//@Entity @Table(name = "imageLib")
 public class ImageLib {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

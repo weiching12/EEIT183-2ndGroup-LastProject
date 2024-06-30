@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity @Table(name = "ownGameLib")
+//@Entity @Table(name = "ownGameLib")
 @IdClass(GameAndMemId.class)
 public class OwnGameLib {
 	

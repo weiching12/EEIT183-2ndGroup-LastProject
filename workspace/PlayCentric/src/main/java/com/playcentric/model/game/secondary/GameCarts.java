@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity @Table(name = "gameCarts")
+//@Entity @Table(name = "gameCarts")
 @IdClass(GameAndMemId.class)
 public class GameCarts {
 	

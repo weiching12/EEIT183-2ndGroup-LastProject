@@ -19,8 +19,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-@Table(name = "gameOrder")
+//@Entity
+//@Table(name = "gameOrder")
 public class GameOrder {
 	
 	@Id
