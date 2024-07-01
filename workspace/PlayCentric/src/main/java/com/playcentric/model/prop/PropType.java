@@ -20,6 +20,6 @@ public class PropType {
 // PK
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer propTypeId;
+	private int propTypeId;
     private String propType;
 }
