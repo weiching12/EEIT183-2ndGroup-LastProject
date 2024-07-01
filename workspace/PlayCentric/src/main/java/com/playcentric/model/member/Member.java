@@ -1,5 +1,9 @@
 package com.playcentric.model.member;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,18 +28,19 @@ public class Member {
     private String email;
     private String nickname;
     private String memName;
-    private String birthday;
+    private Date birthday;
+    @Column(columnDefinition = "CHAR(10)")
     private String phone;
     private String address;
     private String googeId;
     private String facebookId;
     private String twitterId;
-    private String totalSpent;
-    private String registDate;
-    private String lastLogin;
-    private String role;
-    private String photo;
-    private String gender;
-    private String status;
-    private String points;
+    private Integer totalSpent;
+    private Date registDate;
+    private LocalDateTime lastLogin;
+    private short role;
+    private Integer photo;
+    private short gender;
+    private short status;
+    private Integer points;
 }

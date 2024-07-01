@@ -1,7 +1,6 @@
-package com.playcentric.model.game.secondary;
+package com.playcentric.model.game.transaction;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.playcentric.model.game.primary.Game;
@@ -13,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,21 +20,24 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity @Table(name = "gameCarts")
-@IdClass(GameAndMemId.class)
-public class GameCarts {
+@Entity @Table(name = "gameOrderDetails")
+@IdClass(GameOrderDetailsId.class)
+public class GameOrderDetails {
 	
 	@Id
-	private Integer gameId;
+	private Integer gameOrderId;
 	@Id
-	private Integer memId;
+	private Integer gameId;
 	private Integer amount;
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "memId")
-	private Member member;
+	private Integer unitPrice;
+	private BigDecimal discountRate;
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "gameId")
 	private Game game;
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "gameOrderId")
+	private GameOrder gameOrder;
+	
 }
