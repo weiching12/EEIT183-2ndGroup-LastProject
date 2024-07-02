@@ -1,4 +1,4 @@
-package com.playcentric.controller.member;
+	package com.playcentric.controller.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
