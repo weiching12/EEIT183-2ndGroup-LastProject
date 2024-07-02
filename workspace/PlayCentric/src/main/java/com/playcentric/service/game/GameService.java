@@ -31,6 +31,20 @@ public class GameService {
 	
 	//更新以id找到的遊戲
 	public Game update(Integer id,Game game) {
+		Game origin = findById(id);
+		origin.setDescription(game.getDescription());
+		origin.setDeveloper(game.getDeveloper());
+		origin.setGameDiscounts(game.getGameDiscounts());
+		origin.setGameFilePath(game.getGameFilePath());
+		origin.setGameName(game.getGameName());
+		origin.setGameTypeLibs(game.getGameTypeLibs());
+		origin.setImageLibs(game.getImageLibs());
+		origin.setIsFirstRelease(game.getIsFirstRelease());
+		origin.setIsShow(game.getIsShow());
+		origin.setPrice(game.getPrice());
+		origin.setPublisher(game.getPublisher());
+		origin.setReleaseAt(game.getReleaseAt());
+		return gRepo.save(origin);
 	}
 	
 }

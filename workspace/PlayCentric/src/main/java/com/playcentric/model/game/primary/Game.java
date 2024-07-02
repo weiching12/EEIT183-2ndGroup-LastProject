@@ -21,7 +21,13 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "game")
 public class Game {
@@ -51,5 +57,5 @@ public class Game {
 	private List<ImageLib> imageLibs;
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "game")
 	private List<GameDiscount> gameDiscounts;
-	private boolean isFirstRelease = true;
+	private Boolean isFirstRelease = true;
 }
