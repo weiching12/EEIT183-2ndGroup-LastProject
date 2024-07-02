@@ -29,9 +29,9 @@ public class AnnouncementService {
 		return aRepo.findAll();
 	}
 	
-	//更新公告
-	public Announcement update(Announcement announcement) {
-		Announcement anno = findById(announcement.getAnnoId());
+	//更新以id找到的公告
+	public Announcement updateById(Integer id,Announcement announcement) {
+		Announcement anno = findById(id);
 		anno.setAnnoTypeId(announcement.getAnnoTypeId());
 		anno.setAnnouncementType(announcement.getAnnouncementType());
 		anno.setContent(announcement.getContent());
