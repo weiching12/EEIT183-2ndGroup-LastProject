@@ -30,12 +30,12 @@ public class Member {
     private String googeId;
     private String facebookId;
     private String twitterId;
-    private String totalSpent;
+    private Integer totalSpent;
     private String registDate;
     private String lastLogin;
-    private String role;
-    private String photo;
-    private String gender;
-    private String status;
-    private String points;
+    private Short role;
+    private Integer photo;
+    private Short gender;
+    private Short status;
+    private Integer points;
 }
