@@ -1,9 +1,11 @@
 package com.playcentric.model.prop;
 
 import java.util.Date;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
@@ -16,17 +18,20 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "PropSellOrder")
+@Table(name = "propSellOrder")
 public class PropSellOrder {
 
-    @EmbeddedId
-    private MemberPropInventoryId memberPropInventoryId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int orderId;
 
-    // FK 倉庫的複合 PK 賣家會員編號 -> 倉庫 (會員編號)，道具編號 -> 倉庫 (道具編號)
+    private int propId;
+    private int sellerMemId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
-        @JoinColumn(name = "sellerMemrId", referencedColumnName = "menId", insertable = false, updatable = false),
-        @JoinColumn(name = "propId", referencedColumnName = "propId", insertable = false, updatable = false)
+        @JoinColumn(name = "propId", referencedColumnName = "propId", insertable = false, updatable = false),
+        @JoinColumn(name = "sellerMemId", referencedColumnName = "memId", insertable = false, updatable = false)
     })
     private MemberPropInventory memberPropInventory;
 

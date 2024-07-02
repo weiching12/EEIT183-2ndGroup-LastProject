@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Embeddable
-public class propBuyOrderId implements Serializable{
+public class PropBuyOrderId implements Serializable{
 	
     private int orderId;
     private int buyerMemId;
@@ -28,7 +28,7 @@ public class propBuyOrderId implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		propBuyOrderId other = (propBuyOrderId) obj;
+		PropBuyOrderId other = (PropBuyOrderId) obj;
 		return buyerMemId == other.buyerMemId && orderId == other.orderId;
 	}
     

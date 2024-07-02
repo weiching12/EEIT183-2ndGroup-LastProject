@@ -1,6 +1,7 @@
 package com.playcentric.model.prop;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import com.playcentric.model.ImageLib;
 import com.playcentric.model.game.primary.Game;
@@ -33,9 +34,9 @@ public class Props {
 	private String propName;
     private String propRarity;
     private String propDescription;
-    private String propImageName;
-    private Date createdTime;
-    private Date updatedTime;
+    private int propImageId;
+    private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;
 
 	
 //  FK 遊戲
@@ -50,7 +51,7 @@ public class Props {
 
 //  FK 圖片
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "imageId", referencedColumnName = "imageId", insertable = false, updatable = false)
+    @JoinColumn(name = "propImageId", referencedColumnName = "imageId", insertable = false, updatable = false)
 	private ImageLib imageLib;
     
 }

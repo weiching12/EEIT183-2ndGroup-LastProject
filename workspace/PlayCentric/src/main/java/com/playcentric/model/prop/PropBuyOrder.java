@@ -1,10 +1,8 @@
 package com.playcentric.model.prop;
 
 import java.util.Date;
-
 import com.playcentric.model.game.transaction.Payment;
 import com.playcentric.model.member.Member;
-
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,34 +14,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "propBuyOrder")
-public class propBuyOrder {
-	@EmbeddedId
-    private propBuyOrderId id;
-	
-//	FK 委託賣單
-    @ManyToOne
+public class PropBuyOrder {
+
+    @EmbeddedId
+    private PropBuyOrderId id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("orderId")
-    @JoinColumn(name = "orderId")
+    @JoinColumn(name = "orderId", referencedColumnName = "orderId", insertable = false, updatable = false)
     private PropSellOrder propSellOrder;
 
-//	FK 會員
-    @ManyToOne
-    @MapsId("memId")
-    @JoinColumn(name = "memId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("buyerMemId")
+    @JoinColumn(name = "buyerMemId", referencedColumnName = "memId", insertable = false, updatable = false)
     private Member member;
-    
+
     private int quantity;
     private Date orderTime;
-    
-//  FK 付款
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paymentId", referencedColumnName = "paymentId", insertable = false, updatable = false)
     private Payment payment;
-	
 }
