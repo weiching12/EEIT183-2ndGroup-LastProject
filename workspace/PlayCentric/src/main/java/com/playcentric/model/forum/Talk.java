@@ -6,8 +6,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.playcentric.model.member.Member;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,14 +34,14 @@ public class Talk {
 	private int talkId;
 	
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "textsId")
 	private Texts texts;
 	
-//	@JsonIgnore
-//	@ManyToOne
-//	@JoinColumn(name = "memId")
-//	private Members  members;
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "memId")
+	private Member member;
 	
 	private String talkContent;
 	
@@ -52,4 +54,14 @@ public class Talk {
 	
 	private boolean hideTalk;
 
+	public Talk(Texts texts, Member member, String talkContent, Date talkTime, int talkLikeNum, boolean hideTalk) {
+		this.texts = texts;
+		this.member = member;
+		this.talkContent = talkContent;
+		this.talkTime = talkTime;
+		this.talkLikeNum = talkLikeNum;
+		this.hideTalk = hideTalk;
+	}
+
+	
 }

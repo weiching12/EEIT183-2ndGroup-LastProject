@@ -9,6 +9,7 @@ import com.playcentric.model.game.primary.Game;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,19 +32,25 @@ public class Forum {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int forumId;
 
-//	@JsonIgnore
-//	@OneToOne
-//	@JoinColumn(name = "gameId")
-//	private Game game;
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "gameId")
+	private Game game;
 
 //	@JsonIgnore
-//	@OneToMany(mappedBy = "forum", cascade = CascadeType.ALL)
+//	@OneToMany(mappedBy = "forum", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //	private List<ImageLib> imageLib = new ArrayList<>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "forum", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "forum", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Texts> texts = new ArrayList<>();
 
 	private String textsIntro;
+
+	public Forum(List<Texts> texts, String textsIntro) {
+		super();
+		this.texts = texts;
+		this.textsIntro = textsIntro;
+	}
 
 }
