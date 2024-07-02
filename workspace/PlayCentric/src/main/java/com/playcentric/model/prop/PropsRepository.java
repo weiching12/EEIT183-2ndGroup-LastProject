@@ -8,6 +8,6 @@ import com.playcentric.model.game.transaction.Payment;
 
 public interface PropsRepository extends JpaRepository<Props, Integer> {
 
-	List<Props> findPropsByGameId(int gameId);
+//	List<Props> findPropsByGameId(int gameId);
 
 }

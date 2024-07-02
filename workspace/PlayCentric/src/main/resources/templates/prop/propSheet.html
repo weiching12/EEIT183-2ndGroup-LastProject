@@ -1,9 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>遊戲道具交易後台</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
   </head>
-  <body></body>
+  <body>
+    <header>
+      <h1>遊戲道具交易後台</h1>
+      <div id="gameList">
+        <form id="myForm">
+          <label for="SelectGame">遊戲選單:</label>
+          <select id="SelectGame" name="gameId"></select>
+          <button id="submitBtn">送出</button>
+        </form>
+        <div th:replace="~{prop/marketNavbar}"></div>
+      </div>
+    </header>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const url = "http://localhost:8080/PlayCentric/prop/SelectGame";
+        axios
+          .get(url)
+          .then(function (res) {
+            const games = res.data;
+            const selectGame = document.getElementById("SelectGame");
+            games.forEach(function (game) {
+              const option = document.createElement("option");
+              option.value = game.gameId;
+              option.text = game.gameName;
+              selectGame.appendChild(option);
+            });
+          })
+          .catch(function (error) {
+            console.error("Error fetching game data:", error);
+          });
+      });
+
+      const submitBtn = document.getElementById("submitBtn");
+      submitBtn.addEventListener("click", (event) => {
+        event.preventDefault(); // 取消 form 預設的送出
+        const selectedGameId = document.getElementById("SelectGame").value;
+        console.log("Selected Game ID:", selectedGameId);
+        // 可以在此处添加后续处理逻辑，例如发送所选游戏ID到服务器
+      });
+    </script>
+    <script th:src="@{/js/axios.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.js}"></script>
+  </body>
 </html>
