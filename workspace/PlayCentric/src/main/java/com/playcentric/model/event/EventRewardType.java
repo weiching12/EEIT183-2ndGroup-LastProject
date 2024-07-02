@@ -1,7 +1,5 @@
 package com.playcentric.model.event;
 
-import java.util.Date;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,17 +13,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "event")
-public class Event {
+@Table(name = "eventRewardType")
+public class EventRewardType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int eventId;
-    private String eventName;
-    private String eventDescription;
-    private int eventType;
-    private String eventLocation;
-    private Date eventStartTime;
-    private Date eventEndTime;
-    private Date eventSignupDeadline;
-    private int eventQuotaLimit;
+    private int rewardTypeId;
+
+    private String rewardTypeName;
 }
