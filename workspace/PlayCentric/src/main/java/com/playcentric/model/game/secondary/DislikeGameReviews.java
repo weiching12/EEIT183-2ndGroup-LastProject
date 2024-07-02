@@ -1,5 +1,6 @@
 package com.playcentric.model.game.secondary;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.playcentric.model.member.Member;
 
 import jakarta.persistence.Entity;
@@ -22,9 +23,11 @@ public class DislikeGameReviews {
 	private Integer gameReviewsId;
 	@Id
 	private Integer memId;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "memId")
 	private Member member;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "gameReviewsId")
 	private GameReviews gameReviews;
