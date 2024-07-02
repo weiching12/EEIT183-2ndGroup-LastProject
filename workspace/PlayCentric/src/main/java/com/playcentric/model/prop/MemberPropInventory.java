@@ -30,8 +30,8 @@ public class MemberPropInventory {
 	
 //    FK Member
     @ManyToOne
-    @MapsId("menId")
-    @JoinColumn(name = "menId")
+    @MapsId("memId")
+    @JoinColumn(name = "memId")
     private Member member;
     
     

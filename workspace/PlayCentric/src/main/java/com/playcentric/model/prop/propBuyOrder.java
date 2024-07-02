@@ -2,6 +2,7 @@ package com.playcentric.model.prop;
 
 import java.util.Date;
 
+import com.playcentric.model.game.transaction.Payment;
 import com.playcentric.model.member.Member;
 
 import jakarta.persistence.EmbeddedId;
@@ -33,8 +34,8 @@ public class propBuyOrder {
 
 //	FK 會員
     @ManyToOne
-    @MapsId("menId")
-    @JoinColumn(name = "menId")
+    @MapsId("memId")
+    @JoinColumn(name = "memId")
     private Member member;
     
     private int quantity;

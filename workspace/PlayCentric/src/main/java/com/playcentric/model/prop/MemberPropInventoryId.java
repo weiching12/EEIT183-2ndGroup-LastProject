@@ -15,11 +15,11 @@ import lombok.Setter;
 public class MemberPropInventoryId implements Serializable {
 	
     private int propId;
-    private int menId;
+    private int memId;
     
 	@Override
 	public int hashCode() {
-		return Objects.hash(menId, propId);
+		return Objects.hash(memId, propId);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -30,7 +30,7 @@ public class MemberPropInventoryId implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		MemberPropInventoryId other = (MemberPropInventoryId) obj;
-		return menId == other.menId && propId == other.propId;
+		return memId == other.memId && propId == other.propId;
 	}
     
     
