@@ -30,12 +30,18 @@ public class MemberService {
 		newMember.setNickname(memGoogle.getName());
 		newMember.setMemName(memGoogle.getName());
 		newMember.setEmail(memGoogle.getEmail());
-		return memberRepository.save(newMember);
+		return addMember(newMember);
 	}
 	
 	public Member addMember(Member newMember) {
-		String encodedPwd = passwordEncoder.encode(newMember.getPassword());
-		newMember.setPassword(encodedPwd);
+		if (!newMember.getPassword().contains("login")) {
+			String encodedPwd = passwordEncoder.encode(newMember.getPassword());
+			newMember.setPassword(encodedPwd);
+		}
+		newMember.setTotalSpent(0);
+		newMember.setRole((short)0);
+		newMember.setStatus((short)0);
+		newMember.setPoints(0);
 		return memberRepository.save(newMember);
 	}
 	

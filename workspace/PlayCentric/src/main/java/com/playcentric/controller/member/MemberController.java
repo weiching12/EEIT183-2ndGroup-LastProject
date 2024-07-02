@@ -3,6 +3,7 @@ package com.playcentric.controller.member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,12 +24,17 @@ public class MemberController {
 	
 	@PostMapping("/member/regist")
 	@ResponseBody
-	public String registMember(@RequestBody Member member) {
-		if (hasInfo(member)) {
-			memberService.addMember(member);
-			return "註冊成功!";
+	public String registMember(@ModelAttribute Member member) {
+		try {
+			if (hasInfo(member)) {
+				memberService.addMember(member);
+				return "註冊成功!";
+			}
+			return "請填妥資料";
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return "請填妥資料";
+		return "註冊失敗";
 	}
 	
 	private boolean hasInfo(Member member) {
