@@ -47,4 +47,10 @@ public class GameService {
 		return gRepo.save(origin);
 	}
 	
+	//刪除以id找到的遊戲
+	public void delete(Integer id) {
+		Game game = findById(id);
+		gRepo.delete(game);
+	}
+	
 }
