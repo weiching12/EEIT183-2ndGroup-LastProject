@@ -42,3 +42,5 @@ replay_pid*
 # Ignore all local history of files
 .history
 .ionide
+
+googleOauth2.properties
