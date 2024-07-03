@@ -20,7 +20,7 @@ public class MemberService {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	public Member addGoogleMem(GoogleLogin memGoogle) {
 		Member newMember = new Member();
 		String password = "login by google";
