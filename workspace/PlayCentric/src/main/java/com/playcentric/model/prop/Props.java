@@ -34,6 +34,8 @@ public class Props {
     private int propImageId;
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
+    private int gameId;
+    private int propTypeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gameId", referencedColumnName = "gameId", insertable = false, updatable = false)

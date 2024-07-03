@@ -17,4 +17,8 @@ public class PropService {
 		return propsRepo.findPropsByGameId(gameId);
 	}
 	
+//	新增道具
+	public void save(Props prop) {
+		propsRepo.save(prop);
+	} 
 }
