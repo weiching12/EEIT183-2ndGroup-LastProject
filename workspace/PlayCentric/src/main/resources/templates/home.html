@@ -9,40 +9,38 @@
 </head>
 
 <body>
-    <nav class="bg-yellow-100 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20"> <!-- 使用 justify-between 來分配左右空間 -->
-                <div class="flex items-center"> <!-- 左側圖片和文本 -->
+    <nav class="bg-yellow-100 shadow-md rounded-md rounded-b-none">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
                     <div class="shrink-0 flex items-center">
                         <a href="#">
                             <img src="../static/images/MyLogo.png" alt="logo" class="h-14 w-auto sm:h-16">
                         </a>
                         <span class="ml-1 text-4xl">PlayCentric</span>
                     </div>
-                    <div class="hidden md:flex md:ml-6 md:space-x-8">
-
-                    </div>
                 </div>
-                <div class="flex items-center">
-                    <div class="hidden md:flex md:ml-6 md:space-x-8 select-none cursor-pointer">
+
+                <!-- menu -->
+                <div class="flex items-center font-semibold">
+                    <div class="hidden md:flex md:ml-6 md:space-x-4 select-none cursor-pointer">
+                        <div>
+                            <a href="#">管理介面</a>
+                        </div>
                         <div class="relative tag">
                             會員
-                            <div class="absolute bg-gray-300 w-max right-0 px-1 py-1 hidden dropmenu rounded-md">
+                            <div class="dropmenu hidden">
                                 <ul>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
                                 </ul>
@@ -50,22 +48,18 @@
                         </div>
                         <div class="relative tag">
                             遊戲商店
-                            <div class="absolute bg-gray-300 w-max right-0 px-1 py-1 hidden dropmenu rounded-md">
+                            <div class="dropmenu hidden">
                                 <ul>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
                                 </ul>
@@ -73,22 +67,18 @@
                         </div>
                         <div class="relative tag">
                             討論區
-                            <div class="absolute bg-gray-300 w-max right-0 px-1 py-1 hidden dropmenu rounded-md">
+                            <div class="dropmenu hidden">
                                 <ul>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
                                 </ul>
@@ -96,22 +86,18 @@
                         </div>
                         <div class="relative tag">
                             物品交易
-                            <div class="absolute bg-gray-300 w-max right-0 px-1 py-1 hidden dropmenu rounded-md">
+                            <div class="dropmenu hidden">
                                 <ul>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
                                 </ul>
@@ -119,22 +105,18 @@
                         </div>
                         <div class="relative tag">
                             伴遊
-                            <div class="absolute bg-gray-300 w-max right-0 px-1 py-1 hidden dropmenu rounded-md">
+                            <div class="dropmenu hidden">
                                 <ul>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
                                 </ul>
@@ -142,22 +124,18 @@
                         </div>
                         <div class="relative tag">
                             活動
-                            <div class="absolute bg-gray-300 w-max right-0 px-1 py-1 hidden dropmenu rounded-md">
+                            <div class="dropmenu hidden">
                                 <ul>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
-                                    <li
-                                        class="hover:bg-gray-100 hover:text-red-600 transition-all duration-500 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                                    <li class="menu-item">
                                         我的選項
                                     </li>
                                 </ul>
@@ -178,27 +156,26 @@
             </div>
         </div>
 
-        <!-- Mobile menu, show/hide based on menu state. -->
+        <!-- Mobile menu -->
         <div id="mobile-menu" class="md:hidden hidden text-center select-none">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:pl-1">
+                <div>
+                    <a href="#">管理介面</a>
+                </div>
                 <div class="tag-m">
                     會員
-                    <div class="dropmenu-m transition-all duration-150 hidden bg-slate-200">
+                    <div class="dropmenu-m hidden">
                         <ul>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
                         </ul>
@@ -207,22 +184,18 @@
 
                 <div class="tag-m">
                     遊戲商店
-                    <div class="dropmenu-m transition-all duration-150 hidden bg-slate-200">
+                    <div class="dropmenu-m hidden">
                         <ul>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
                         </ul>
@@ -230,22 +203,18 @@
                 </div>
                 <div class="tag-m">
                     討論區
-                    <div class="dropmenu-m transition-all duration-150 hidden bg-slate-200">
+                    <div class="dropmenu-m hidden">
                         <ul>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
                         </ul>
@@ -253,22 +222,18 @@
                 </div>
                 <div class="tag-m">
                     物品交易
-                    <div class="dropmenu-m transition-all duration-150 hidden bg-slate-200">
+                    <div class="dropmenu-m hidden">
                         <ul>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
                         </ul>
@@ -276,22 +241,18 @@
                 </div>
                 <div class="tag-m">
                     伴遊
-                    <div class="dropmenu-m transition-all duration-150 hidden bg-slate-200">
+                    <div class="dropmenu-m hidden">
                         <ul>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
                         </ul>
@@ -299,22 +260,18 @@
                 </div>
                 <div class="tag-m">
                     活動
-                    <div class="dropmenu-m transition-all duration-150 hidden bg-slate-200">
+                    <div class="dropmenu-m hidden">
                         <ul>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
-                            <li
-                                class="hover:bg-gray-100 hover:text-red-600 transition-all duration-100 hover:border-red-950 hover:border-2 p-2 rounded-lg">
+                            <li class="menu-item">
                                 我的選項
                             </li>
                         </ul>
@@ -325,23 +282,14 @@
         </div>
     </nav>
 
-
-    <div class="bg-gray-200 py-3 h-dvh grid grid-cols-12"> <!-- 灰色背景區域 -->
-        <div class="col-span-3">
-
+    <div class="bg-sky-300 grid grid-cols-12 h-dvh">
+        <div class="col-span-4 md:col-span-2 bg-sky-200 py-2">
+            1
         </div>
-        <div class="max-w-7xl mx-8 px-4 sm:px-6 lg:px-8 h-full bg-white rounded-lg shadow-md col-span-6">
-            <!-- 白色主內容顯示區域 -->
-            <h2 class="text-2xl font-bold text-gray-900 py-4">主要內容區域</h2>
-            <p class="text-gray-700 leading-relaxed">
-                在這裡放置你的主要內容。你可以根據需要添加更多的段落和元素。
-            </p>
-        </div>
-        <div class="col-auto">
-
+        <div class="col-span-8a md:col-span-10 py-2">
+            2
         </div>
     </div>
-
 
 
     <script>
@@ -365,7 +313,8 @@
 
         const alltagm = document.querySelectorAll('.tag-m');
         alltagm.forEach(elm => {
-            elm.addEventListener('click', () => {
+            elm.addEventListener('click', (e) => {
+
                 if (elm.querySelector('.dropmenu-m').classList.contains('hidden')) {
                     alltagm.forEach(el2 => {
                         el2.querySelector('.dropmenu-m').classList.add('hidden');
