@@ -9,25 +9,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.playcentric.config.GoogleOAuth2Config;
+import com.playcentric.model.member.GoogleLogin;
+import com.playcentric.model.member.Member;
 import com.playcentric.service.member.MemberService;
 
 @Controller
 @RequestMapping("/member")
-@SessionAttributes(names = {"loginMember"})
+@SessionAttributes(names = { "loginMember" })
 public class GoogleOAuth2Controller {
-    
-	
+
 	@Autowired
 	private GoogleOAuth2Config googleOAuth2Config;
-	
+
 	@Autowired
 	private MemberService memberService;
-	
+
 	private final String scope = "https://www.googleapis.com/auth/userinfo.eamil";
 
 	@GetMapping("/google-login")
@@ -40,9 +42,10 @@ public class GoogleOAuth2Controller {
 				+ "&scope=openid%20email%20profile";
 		return "redirect:" + authUrl;
 	}
-	
+
 	@GetMapping("/google-callback")
-	public String googleCallback(@RequestParam(required = false) String code, Model model) {
+	public String googleCallback(@RequestParam(required = false) String code, Model model,
+			RedirectAttributes redirectAttributes) {
 		if (code == null) {
 			String authUrl = googleLogin();
 			authUrl = authUrl.substring(0, authUrl.lastIndexOf("openid%20email%20profile"))
@@ -51,54 +54,70 @@ public class GoogleOAuth2Controller {
 		}
 		RestClient restClient = RestClient.create();
 		try {
-			//設定request params
+			// 設定request params
 			String requestBody = UriComponentsBuilder.newInstance()
-			.queryParam("code", code)
-			.queryParam("client_id", googleOAuth2Config.getClientId())
-			.queryParam("client_secret", googleOAuth2Config.getClientSecret())
-			.queryParam("redirect_uri", googleOAuth2Config.getRedirectUri())
-			.queryParam("grant_type", "authorization_code")
-			.build()
-			.getQuery();
-			//向google發送request取得token
+					.queryParam("code", code)
+					.queryParam("client_id", googleOAuth2Config.getClientId())
+					.queryParam("client_secret", googleOAuth2Config.getClientSecret())
+					.queryParam("redirect_uri", googleOAuth2Config.getRedirectUri())
+					.queryParam("grant_type", "authorization_code")
+					.build()
+					.getQuery();
+			// 向google發送request取得token
 			String credentials = restClient.post()
-			.uri("https://oauth2.googleapis.com/token")
-			.contentType(MediaType.APPLICATION_FORM_URLENCODED)
-			.body(requestBody)
-			.retrieve()
-			.body(String.class);
-			//取得token字串
+					.uri("https://oauth2.googleapis.com/token")
+					.contentType(MediaType.APPLICATION_FORM_URLENCODED)
+					.body(requestBody)
+					.retrieve()
+					.body(String.class);
+			// 取得token字串
 			JsonNode jsonNode = new ObjectMapper().readTree(credentials);
 			String accessToken = jsonNode.get("access_token").asText();
 			String idToken = jsonNode.get("id_token").asText();
-			//利用token再次向google發送請求，找user
+			// 利用token再次向google發送請求，找user
 			String payloadResponse = restClient.get()
-			.uri("https://www.googleapis.com/oauth2/v1/userinfo?"
-					+ "alt=json&access_token="+accessToken)
-			.header("Authorization", "Bearer"+idToken)
-			.retrieve().body(String.class);
-			//取得該帳號email
+					.uri("https://www.googleapis.com/oauth2/v1/userinfo?"
+							+ "alt=json&access_token=" + accessToken)
+					.header("Authorization", "Bearer" + idToken)
+					.retrieve().body(String.class);
+			// System.err.println(payloadResponse);
+			// 取得該帳號email
 			JsonNode userInfo = new ObjectMapper().readTree(payloadResponse);
 			String userEmail = userInfo.get("email").asText();
-			
-			boolean hasUser = memberService.checkEmailExist(userEmail);
-			//檢查是否已經有此帳號
-			Users user = null; 
-			if (hasUser) {
-				user = memberService.findByName(userEmail);
-			}else {
-				user = memberService.addGoogleUsers(userEmail);
+			String googleId = userInfo.get("id").asText();
+
+			Member loginMember = (Member) model.getAttribute("loginMember");
+			boolean hasGoogle = memberService.checkGoogleExist(userEmail);
+			boolean hasAccount = memberService.checkEmailExist(userEmail)
+					|| loginMember!=null;
+			// 檢查是否已經有此帳號
+			Member member = null;
+			if (hasGoogle) {
+				member = memberService.findByGoogleId(googleId);
+			} else {
+				GoogleLogin memGoogle = new GoogleLogin();
+				String googlePhoto = userInfo.get("picture").asText();
+				String googleName = userInfo.get("name").asText();
+				memGoogle.setGoogleId(googleId);
+				memGoogle.setEmail(userEmail);
+				memGoogle.setName(googleName);
+				memGoogle.setPhoto(googlePhoto);
+				if (hasAccount) {
+					member = loginMember!=null? 
+							memberService.memAddGoogle(loginMember.getMemId(), memGoogle)
+							:memberService.memAddGoogle(memGoogle);
+				} else {
+					member = memberService.addGoogleMem(memGoogle);
+				}
 			}
-			
-			model.addAttribute("loginUserId", user.getId());
-			model.addAttribute("loginUsername", user.getUsername());
-			model.addAttribute("loginOK", user.getUsername() + "登入成功");
-			return "redirect:/";
-			
+			model.addAttribute("loginMember", member);
+			redirectAttributes.addFlashAttribute("okMsg", member.getAccount() + "登入成功!");
+			return "redirect:/member/home";
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "users/loginPage";
+			redirectAttributes.addFlashAttribute("errorMsg", "登入失敗!");
+			return "redirect:/member/login";
 		}
-//		return "redirect:/";
 	}
 }
