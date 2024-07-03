@@ -1,8 +1,8 @@
 package com.playcentric.model.prop;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.playcentric.model.ImageLib;
 import com.playcentric.model.game.primary.Game;
 
@@ -13,12 +13,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 @NoArgsConstructor
 @Setter
@@ -26,32 +24,29 @@ import lombok.Setter;
 @Entity
 @Table(name="props")
 public class Props {
-	
-//	PK
+
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer propId;
-	private String propName;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer propId;
+    private String propName;
     private String propRarity;
     private String propDescription;
     private int propImageId;
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
 
-	
-//  FK 遊戲
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gameId", referencedColumnName = "gameId", insertable = false, updatable = false)
-	private Game game;
-    
-//  FK 道具種類
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ProptypeId", referencedColumnName = "ProptypeId", insertable = false, updatable = false)
-	private PropType propType;
+    @JsonIgnore
+    private Game game;
 
-//  FK 圖片
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "propTypeId", referencedColumnName = "propTypeId", insertable = false, updatable = false)
+    @JsonIgnore
+    private PropType propType;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "propImageId", referencedColumnName = "imageId", insertable = false, updatable = false)
-	private ImageLib imageLib;
-    
+    @JsonIgnore
+    private ImageLib imageLib;
 }

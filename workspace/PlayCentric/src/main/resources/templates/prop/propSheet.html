@@ -53,6 +53,7 @@
       </table>
     </div>
 
+    <!-- 找所有遊戲並加入選單 -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const url = "http://localhost:8080/PlayCentric/prop/findAllGame";
@@ -73,12 +74,26 @@
           });
       });
 
+      // 根據gameId找尋所有props方法
+      function findAllPropsByGameId(gameId) {
+        axios
+          .get("http://localhost:8080/PlayCentric/prop/findAllPropsByGameId", {
+            params: {
+              gameId: gameId,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+          });
+      }
+
+      // 監聽搜尋遊戲按鈕並執行findAllPropsByGameId()
       const submitBtn = document.getElementById("submitBtn");
       submitBtn.addEventListener("click", (event) => {
         event.preventDefault(); // 取消 form 預設的送出
         const selectedGameId = document.getElementById("SelectGame").value;
         console.log("Selected Game ID:", selectedGameId);
-        // 可以在此处添加后续处理逻辑，例如发送所选游戏ID到服务器
+        findAllPropsByGameId(selectedGameId);
       });
     </script>
 
