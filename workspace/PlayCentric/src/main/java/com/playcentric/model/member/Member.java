@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,8 +37,10 @@ public class Member {
 
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date birthday;
+	
+	@Column(columnDefinition = "CHAR")
     private String phone;
     private String address;
     private String googeId;
@@ -47,7 +50,7 @@ public class Member {
 
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date registDate;
 
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
@@ -66,9 +69,7 @@ public class Member {
 		if (this.registDate == null) {
 			this.registDate = new Date();
 		}
-		if (this.registDate == null) {
-			this.registDate = new Date();
-		}
+		this.registDate = new Date();
 	}
     
 }
