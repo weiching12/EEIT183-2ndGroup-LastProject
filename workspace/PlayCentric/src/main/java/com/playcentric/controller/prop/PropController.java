@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.playcentric.model.game.primary.Game;
 import com.playcentric.service.game.GameService;
-//import com.playcentric.service.prop.PropService;
+import com.playcentric.service.prop.PropService;
+import com.playcentric.model.prop.Props;
 
 import ch.qos.logback.core.model.Model;
 
@@ -18,8 +19,8 @@ import ch.qos.logback.core.model.Model;
 @SessionAttributes(names = "games")
 public class PropController {
 
-//	@Autowired
-//	private PropService propService;
+	@Autowired
+	private PropService propService;
 
 	@Autowired
 	private GameService gameService;
@@ -33,11 +34,18 @@ public class PropController {
 	
 
 // 找尋所有遊戲回傳至選單
-	@GetMapping("/prop/SelectGame")
+	@GetMapping("/prop/findAllGame")
 	@ResponseBody
 	public List<Game> findAllGame() {
 		List<Game> games = gameService.findAll();
         return games;
 
 	}
-}
+	
+// 根據遊戲ID找尋所有道具
+//	@GetMapping("/prop/findAllPropsByGameId")
+//	@ResponseBody
+//	public 
+
+//}
+	}

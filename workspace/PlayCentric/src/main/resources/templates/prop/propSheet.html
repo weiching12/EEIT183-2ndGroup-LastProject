@@ -24,18 +24,30 @@
       <table id="myTable" class="display">
         <thead>
           <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
+            <th>ID</th>
+            <th>名稱</th>
+            <th>圖片</th>
+            <th>種類</th>
+            <th>稀有度</th>
+            <th>描述</th>
+            <th>創建時間</th>
+            <th>更新時間</th>
+            <th>修改</th>
+            <th>刪除</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Row 1 Data 1</td>
-            <td>Row 1 Data 2</td>
-          </tr>
-          <tr>
-            <td>Row 2 Data 1</td>
-            <td>Row 2 Data 2</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </tbody>
       </table>
@@ -43,7 +55,7 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const url = "http://localhost:8080/PlayCentric/prop/SelectGame";
+        const url = "http://localhost:8080/PlayCentric/prop/findAllGame";
         axios
           .get(url)
           .then(function (res) {

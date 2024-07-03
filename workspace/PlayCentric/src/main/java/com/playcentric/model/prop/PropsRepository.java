@@ -3,11 +3,12 @@ package com.playcentric.model.prop;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.playcentric.model.game.transaction.Payment;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface PropsRepository extends JpaRepository<Props, Integer> {
-
-//	List<Props> findPropsByGameId(int gameId);
+	
+    @Query("SELECT p FROM Props p WHERE p.game.gameId = :gameId")
+    List<Props> findPropsByGameId(@Param("gameId") int gameId);
 
 }

@@ -57,5 +57,5 @@ public class Game {
 	private List<ImageLib> imageLibs;
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "game")
 	private List<GameDiscount> gameDiscounts;
-	private Boolean isFirstRelease = true;
+//	private Boolean isFirstRelease = true;
 }
