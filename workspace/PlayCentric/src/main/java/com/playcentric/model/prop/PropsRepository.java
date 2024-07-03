@@ -11,4 +11,6 @@ public interface PropsRepository extends JpaRepository<Props, Integer> {
     @Query("SELECT p FROM Props p WHERE p.game.gameId = :gameId")
     List<Props> findPropsByGameId(@Param("gameId") int gameId);
 
+    
+    
 }

@@ -51,6 +51,13 @@ public class PropController {
         return propService.findPropsByGameId(gameId);
     }
 
+    // 根據遊戲ID找尋所有道具類型
+    @GetMapping("/prop/findAllPropTypesByGameId")
+    @ResponseBody
+    public List<PropType> findAllPropTypesByGameId(@RequestParam int gameId) {
+        return propTypeService.findAllPropTypesByGameId(gameId);
+    }
+
     // 新增道具
     @PostMapping("/prop/saveProp")
     @ResponseBody

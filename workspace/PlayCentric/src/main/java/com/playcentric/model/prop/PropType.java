@@ -1,11 +1,18 @@
 package com.playcentric.model.prop;
 
-import java.sql.Date;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.playcentric.model.game.primary.Game;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +22,31 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name="propType")
+@Table(name = "propType")
 public class PropType {
-// PK
+    // PK
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int propTypeId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int propTypeId;
+    
     private String propType;
+    
+    @OneToMany(mappedBy = "propType", fetch = FetchType.LAZY)
+    private Set<Props> props;
+
+    // FK gameId
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gameId", referencedColumnName = "gameId", insertable = false, updatable = false)
+    @JsonIgnore
+    private Game game;
+    
+    private int gameId;
+
+    public int getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
 }
