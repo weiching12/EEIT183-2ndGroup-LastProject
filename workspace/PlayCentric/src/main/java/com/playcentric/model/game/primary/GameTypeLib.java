@@ -23,7 +23,7 @@ public class GameTypeLib {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int gameTypeId;
+	private Integer gameTypeId;
 	
 	private String gameTypeName;
 	
