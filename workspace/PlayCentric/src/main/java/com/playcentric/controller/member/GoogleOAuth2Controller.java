@@ -63,6 +63,9 @@ public class GoogleOAuth2Controller {
 					.queryParam("grant_type", "authorization_code")
 					.build()
 					.getQuery();
+			if (requestBody == null) {
+				throw new Exception("取得token的request設定錯誤!");
+			}
 			// 向google發送request取得token
 			String credentials = restClient.post()
 					.uri("https://oauth2.googleapis.com/token")
@@ -88,8 +91,7 @@ public class GoogleOAuth2Controller {
 
 			Member loginMember = (Member) model.getAttribute("loginMember");
 			boolean hasGoogle = memberService.checkGoogleExist(userEmail);
-			boolean hasAccount = memberService.checkEmailExist(userEmail)
-					|| loginMember!=null;
+			boolean hasEmail = memberService.checkEmailExist(userEmail);
 			// 檢查是否已經有此帳號
 			Member member = null;
 			if (hasGoogle) {
@@ -102,10 +104,18 @@ public class GoogleOAuth2Controller {
 				memGoogle.setEmail(userEmail);
 				memGoogle.setName(googleName);
 				memGoogle.setPhoto(googlePhoto);
-				if (hasAccount) {
-					member = loginMember!=null? 
-							memberService.memAddGoogle(loginMember.getMemId(), memGoogle)
-							:memberService.memAddGoogle(memGoogle);
+				if (loginMember != null) {
+					if (hasEmail) {
+						redirectAttributes.addFlashAttribute("errorMsg", "此信箱已被註冊!");
+						// 此處要改成使用者綁定頁面
+						return "redirect:/member/home";
+					}
+					member = memberService.memAddGoogle(loginMember.getMemId(), memGoogle);
+					redirectAttributes.addFlashAttribute("okMsg", "Google綁定成功!");
+					// 此處要改成使用者綁定頁面
+					return "redirect:/member/home";
+				} else if (hasEmail) {
+					member = memberService.memAddGoogle(memGoogle);
 				} else {
 					member = memberService.addGoogleMem(memGoogle);
 				}
