@@ -69,7 +69,7 @@ public class Member {
 		if (this.registDate == null) {
 			this.registDate = new Date();
 		}
-		this.registDate = new Date();
+		this.lastLogin = new Date();
 	}
     
 }

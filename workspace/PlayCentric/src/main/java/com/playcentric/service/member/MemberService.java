@@ -1,5 +1,7 @@
 package com.playcentric.service.member;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,22 +22,45 @@ public class MemberService {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	public Member memAddGoogle(GoogleLogin memGoogle){
+		Integer memberId = memberRepository.findByEmail(memGoogle.getEmail()).getMemId();
+		return memAddGoogle(memberId, memGoogle);
+	}
+
+	public Member memAddGoogle(Integer memberId, GoogleLogin memGoogle){
+		Optional<Member> optional = memberRepository.findById(memberId);
+		if (optional.isPresent()) {
+			Member member = optional.get();
+			member.setGoogeId(memGoogle.getGoogleId());
+			googleRepository.save(memGoogle);
+			return memberRepository.save(member);
+		}
+		return null;
+	}
 	
 	public Member addGoogleMem(GoogleLogin memGoogle) {
 		Member newMember = new Member();
 		String password = "login by google";
+		memGoogle = googleRepository.save(memGoogle);
 		newMember.setGoogeId(memGoogle.getGoogleId());
 		newMember.setAccount(memGoogle.getEmail());
 		newMember.setPassword(password);
 		newMember.setNickname(memGoogle.getName());
 		newMember.setMemName(memGoogle.getName());
 		newMember.setEmail(memGoogle.getEmail());
-		return memberRepository.save(newMember);
+		return addMember(newMember);
 	}
 	
 	public Member addMember(Member newMember) {
-		String encodedPwd = passwordEncoder.encode(newMember.getPassword());
-		newMember.setPassword(encodedPwd);
+		if (!newMember.getPassword().contains("login")) {
+			String encodedPwd = passwordEncoder.encode(newMember.getPassword());
+			newMember.setPassword(encodedPwd);
+		}
+		newMember.setTotalSpent(0);
+		newMember.setRole((short)0);
+		newMember.setStatus((short)0);
+		newMember.setPoints(0);
 		return memberRepository.save(newMember);
 	}
 	
@@ -58,5 +83,13 @@ public class MemberService {
 		}
 		String encodedPassword = member.getPassword();
 		return passwordEncoder.matches(password, encodedPassword)? member:null;
+	}
+
+	public Member findByEmail(String email){
+		return memberRepository.findByEmail(email);
+	}
+
+	public Member findByGoogleId(String googleId){
+		return memberRepository.findByGoogeId(googleId);
 	}
 }
