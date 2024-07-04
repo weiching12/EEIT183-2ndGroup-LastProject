@@ -10,8 +10,39 @@
     background-color: #5d6fc9dc;
 }
 
+
 .border-primary-sub-tw {
     border-color: #5d6fc9dc;
+}
+
+.bg-main {
+    background-color: #eef8fcfe;
+}
+
+.bg-content {
+    background-color: #c4e8f4;
+}
+
+.btn {
+    @apply bg-primary-tw text-white p-2 rounded-md
+}
+
+.btn:hover {
+    background-color: #5d6fc9dc;
+}
+
+.noscrollbar {
+    scrollbar-width: 0;
+    -ms-overflow-style: none;
+}
+
+.noscrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+
+body {
+    @apply bg-main
 }
 
 .dropmenu {
