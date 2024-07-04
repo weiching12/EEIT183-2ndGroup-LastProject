@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-primary-tw {
+    background-color: #1e36b0dc;
+}
+
+.bg-primary-sub-tw {
+    background-color: #5d6fc9dc;
+}
+
+.border-primary-sub-tw {
+    border-color: #5d6fc9dc;
+}
+
+.dropmenu {
+    @apply absolute w-max right-0 px-1 py-1 rounded-md bg-primary-sub-tw
+}
+
+.dropmenu-m {
+    @apply transition-all duration-200 bg-primary-sub-tw
+}
+
+.menu-item {
+    @apply transition-all duration-200 p-2 rounded-lg border-2 border-primary-sub-tw bg-primary-sub-tw;
+}
+
+.menu-item:hover {
+    @apply bg-sky-500 border-yellow-200;
+}
