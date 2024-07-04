@@ -16,7 +16,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -25,25 +24,19 @@ import lombok.Setter;
 public class PfGame {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer pfGameId;//伴遊遊戲編號
-	
+	private Integer pfGameId;// 伴遊遊戲編號
+
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "playFellowId")//伴遊者id
+	@JoinColumn(name = "playFellowId") // 伴遊者id
 	private PlayFellowMember playFellowMember;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "gameId")//遊戲id 一個伴遊者會有多個遊戲OneToMany
+	@JoinColumn(name = "gameId") // 遊戲id 一個伴遊者會有多個遊戲OneToMany
 	private Game game;
-	
-	private String pricingCategory;//計費方式(小時or計次)單位初始只能1
-	
-	private Integer amount;//單價金額 沒小數
-	
-	private Byte pfGameStatus;//狀態  1:開啟 2:關閉
-	
-	
-	
-	
-	
-	
+
+	private String pricingCategory;// 計費方式(小時or計次)單位初始只能1
+
+	private Integer amount;// 單價金額 沒小數
+
+	private Byte pfGameStatus;// 狀態 1:開啟 2:關閉
 }

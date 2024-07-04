@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>新增伴遊成員</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">新增伴遊成員</h1>
+        <form action="/playfellowmembers/playFellow/add" method="post">
+            <div class="form-group">
+                <label for="memId">會員ID</label>
+                <input type="number" class="form-control" id="memId" name="memId" required>
+            </div>
+            <div class="form-group">
+                <label for="nickname">暱稱</label>
+                <input type="text" class="form-control" id="nickname" name="nickname" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">性別</label>
+                <input type="text" class="form-control" id="member.gender" name="gender" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">生日</label>
+                <input type="text" class="form-control" id="member.birthday" name="birthday" required>
+            </div>
+            <div class="form-group">
+                <label for="pfStatus">狀態</label>
+                <input type="number" class="form-control" id="pfStatus" name="pfStatus" required>
+            </div>
+            <div class="form-group">
+                <label for="pfCreatedTime">創建時間</label>
+                <input type="date" class="form-control" id="pfCreatedTime" name="pfCreatedTime" required>
+            </div>
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
+    </div>
+</body>
+</html>

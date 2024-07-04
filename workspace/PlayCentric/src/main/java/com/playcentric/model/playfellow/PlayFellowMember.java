@@ -36,20 +36,20 @@ public class PlayFellowMember {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer playFellowId; // id 自增 遞增
 
-	private String pfNickname; // 暱稱
+	private String pfnickname; // 暱稱
 
-	private String pfDescription; // 自介
+	private String pfdescription; // 自介
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pfMemImageId")
 	private ImageLib imageLib; // 連接照片庫id
 
 	
-	private Byte pfStatus; // 狀態:1 待審核、2審核失敗、 3開啟，4關閉
+	private Byte pfstatus; // 狀態:1 待審核、2審核失敗、 3開啟，4關閉
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 設定創建格式
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date pfCreatedTime; // 創建時間 SQL自建
+	private Date pfcreatedTime; // 創建時間 SQL自建
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "memId")
@@ -57,8 +57,8 @@ public class PlayFellowMember {
 
 	@PrePersist // 當物件要轉換成 Persistent 狀態以前，先做以下方法
 	public void onCreate() {
-		if (pfCreatedTime == null) {
-			pfCreatedTime = new Date();
+		if (pfcreatedTime == null) {
+			pfcreatedTime = new Date();
 		}
 	}
 
