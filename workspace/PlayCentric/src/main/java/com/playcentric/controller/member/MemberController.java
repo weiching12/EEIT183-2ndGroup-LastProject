@@ -62,8 +62,8 @@ public class MemberController {
 	public String loginPost(@RequestParam String account,@RequestParam String password, Model model, RedirectAttributes redirectAttributes) {
 		Member loginMember = memberService.checkLogin(account, password);
 		if (loginMember==null) {
-			redirectAttributes.addFlashAttribute("errorMsg", "登入失敗");
-			return "redirect:login";
+			model.addAttribute("errorMsg", "登入失敗");
+			return "member/loginPage";
 		}
 		model.addAttribute("loginMember", new MemberDto(loginMember));
 		redirectAttributes.addFlashAttribute("okMsg", "登入成功");
