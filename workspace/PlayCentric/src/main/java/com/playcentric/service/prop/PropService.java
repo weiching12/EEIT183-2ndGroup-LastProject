@@ -21,4 +21,9 @@ public class PropService {
 	public void save(Props prop) {
 		propsRepo.save(prop);
 	} 
+	
+//	刪除道具
+	public void deleteById(int id) {
+		propsRepo.deleteById(id);
+	}
 }

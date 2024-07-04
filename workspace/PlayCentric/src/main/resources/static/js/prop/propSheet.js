@@ -1,6 +1,5 @@
 // 初始化 DataTable 並設置語言選項
 var table;
-
 $(document).ready(function () {
   // 初始化 DataTable 並設置語言選項
   table = $("#myTable").DataTable({
@@ -29,16 +28,27 @@ $(document).ready(function () {
   // 新增道具表單提交事件
   $("#savePropForm").submit(function (event) {
     event.preventDefault(); // 防止表單的默認提交行為
-    const prop = {
-      propName: $("#propName").val(), // 道具名稱
-      propRarity: $("#propRarity").val(), // 道具稀有度
-      propDescription: $("#propDescription").val(), // 道具描述
-      propImageId: $("#propImageId").val(), // 道具圖片ID
-      propTypeId: $("#propTypeId").val(), // 道具種類ID
-      gameId: $("#SelectGame").val(), // 遊戲ID
-      createdTime: new Date().toISOString(), // 當前時間
-    };
-    saveProp(prop); // 保存道具
+
+    var formData = new FormData();
+    formData.append("propName", $("#propName").val()); // 道具名稱
+    formData.append("propRarity", $("#propRarity").val()); // 道具稀有度
+    formData.append("propDescription", $("#propDescription").val()); // 道具描述
+    formData.append("propTypeId", $("#propTypeId").val()); // 道具種類ID
+    formData.append("gameId", $("#SelectGame").val()); // 遊戲ID
+    formData.append("propImage", $("#propImage")[0].files[0]); // 道具圖片文件
+    saveProp(formData); // 保存道具
+  });
+
+  // 監聽刪除按鈕點擊事件
+  $("#myTable").on("click", ".btn-danger", function () {
+    if (window.confirm("確定要刪除嗎？")) {
+      var propId = $(this).data("prop-id");
+      deleteProp(propId); // 確認刪除道具
+    } else {
+      // 用戶取消刪除操作
+      console.log("用戶取消刪除操作");
+      // 或者可以在取消時做一些提示或其他操作
+    }
   });
 });
 
@@ -66,7 +76,7 @@ function loadGames() {
       }
     })
     .catch(function (error) {
-      console.error("Error fetching game data:", error);
+      console.error("獲取遊戲數據時出錯:", error);
     });
 }
 
@@ -81,7 +91,7 @@ function loadAllPropTypes() {
       });
     })
     .catch(function (error) {
-      console.error("Error fetching all prop types data:", error);
+      console.error("獲取所有道具種類數據時出錯:", error);
     });
 }
 
@@ -95,7 +105,7 @@ function fetchPropTypesByGameId(gameId, callback) {
       callback(res.data);
     })
     .catch((error) => {
-      console.error("Error fetching prop types data:", error);
+      console.error("獲取道具種類數據時出錯:", error);
     });
 }
 
@@ -131,21 +141,25 @@ function findAllPropsByGameId(gameId) {
           prop.createdTime, // 創建時間
           prop.updatedTime, // 更新時間
           '<button class="btn btn-primary">修改</button>', // 修改按鈕
-          '<button class="btn btn-danger">刪除</button>', // 刪除按鈕
+          `<button class="btn btn-danger" data-prop-id="${prop.propId}">刪除</button>`, // 刪除按鈕
         ];
         table.row.add(row);
       });
       table.draw();
     })
     .catch((error) => {
-      console.error("Error fetching props data:", error);
+      console.error("獲取道具數據時出錯:", error);
     });
 }
 
 // 保存道具
-function saveProp(prop) {
+function saveProp(formData) {
   axios
-    .post("http://localhost:8080/PlayCentric/prop/saveProp", prop)
+    .post("http://localhost:8080/PlayCentric/prop/saveProp", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
     .then((res) => {
       console.log("道具已成功保存", res);
       $("#savePropModal").modal("hide");
@@ -156,7 +170,23 @@ function saveProp(prop) {
     });
 }
 
+// 刪除道具
+function deleteProp(propId) {
+  axios
+    .delete("http://localhost:8080/PlayCentric/prop/deleteProp", {
+      params: { id: propId }, // 這裡應該使用函數參數中的 propId，而不是 propIdToDelete
+    })
+    .then((res) => {
+      console.log("道具已成功刪除", res);
+      findAllPropsByGameId($("#SelectGame").val());
+    })
+    .catch((error) => {
+      console.error("刪除道具時出錯", error);
+    });
+}
+
 // 顯示新增道具的模態框
 function savePropWindow() {
+  $("#savePropForm")[0].reset(); // 使用原生 JavaScript 方法重置表單
   $("#savePropModal").modal("show");
 }
