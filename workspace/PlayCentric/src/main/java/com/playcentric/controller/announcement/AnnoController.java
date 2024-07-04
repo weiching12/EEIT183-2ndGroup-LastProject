@@ -99,5 +99,10 @@ public class AnnoController {
 		return "redirect:/anno/showAllAnno";
 	}
 	
+	@GetMapping("/test")
+	public String getMethodName() {
+		return "nav";
+	}
+	
 	
 }
