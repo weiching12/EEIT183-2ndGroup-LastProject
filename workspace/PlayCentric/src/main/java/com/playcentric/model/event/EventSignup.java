@@ -28,11 +28,11 @@ public class EventSignup {
     private int signupId;
 
     @ManyToOne
-    @JoinColumn(name = "memberId", nullable = false)
+    @JoinColumn(name = "memberId")
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "eventId", nullable = false)
+    @JoinColumn(name = "eventId")
     private Event event;
 
     private LocalDateTime signupTime;
