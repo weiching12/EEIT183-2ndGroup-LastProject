@@ -19,7 +19,7 @@ public class PropTypeService {
         Optional<PropType> optionalPropType = propTypeRepo.findById(propTypeId);
         return optionalPropType.orElse(null); 
     }
-    // 根据gameId获取道具类型
+    // 根據gameId獲取道具類型
     public List<PropType> findAllPropTypesByGameId(int gameId) {
         return propTypeRepo.findAllByGameId(gameId);
     }

@@ -6,10 +6,7 @@
     <title>遊戲道具交易後台</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
     <link rel="stylesheet" th:href="@{/css/dataTables.dataTables.css}" />
-    <script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="@{/js/bootstrap.bundle.js}"></script>
-    <script th:src="@{/js/dataTables.js}"></script>
-    <script th:src="@{/js/axios.min.js}"></script>
+
   </head>
   <body>
     <header class="container">
@@ -126,161 +123,10 @@
         </tbody>
       </table>
     </div>
-
-    <!-- 找所有遊戲並加入選單 -->
-    <script>
-      // 當文檔準備就緒時執行此函數
-      $(document).ready(function () {
-        // 使用 axios 發送 GET 請求來獲取所有遊戲數據
-        axios
-          .get("http://localhost:8080/PlayCentric/prop/findAllGame")
-          .then(function (res) {
-            const games = res.data; // 獲取返回的遊戲數據
-            const selectGame = document.getElementById("SelectGame"); // 獲取遊戲選單元素
-            // 遍歷所有遊戲數據，將每個遊戲加入選單中
-            games.forEach(function (game) {
-              const option = document.createElement("option");
-              option.value = game.gameId; // 設置選項的值為遊戲ID
-              option.text = game.gameName; // 設置選項的顯示文本為遊戲名稱
-              selectGame.appendChild(option); // 將選項加入選單中
-            });
-
-            // 如果有遊戲數據，默認選擇第一個遊戲並觸發提交按鈕的點擊事件
-            if (games.length > 0) {
-              selectGame.value = games[0].gameId; // 設置默認選擇的遊戲
-              $("#submitBtn").click(); // 觸發提交按鈕點擊事件
-            }
-          })
-          .catch(function (error) {
-            console.error("Error fetching game data:", error); // 請求失敗時輸出錯誤信息
-          });
-
-        // 初始化 DataTable 並設置語言選項
-        var table = $("#myTable").DataTable({
-          language: {
-            info: "顯示第 _START_ 到第 _END_ 筆，共 _TOTAL_ 筆記錄", // 設置顯示的信息
-          },
-        });
-
-        // 根據 gameId 查找所有道具的方法
-        function findAllPropsByGameId(gameId) {
-          axios
-            .get(
-              "http://localhost:8080/PlayCentric/prop/findAllPropsByGameId",
-              {
-                params: {
-                  gameId: gameId, // 設置請求的參數 gameId
-                },
-              }
-            )
-            .then((res) => {
-              const props = res.data; // 獲取返回的道具數據
-              table.clear(); // 清空現有的表格行
-              // 遍歷所有道具數據，將每個道具加入表格中
-              props.forEach(function (prop) {
-                const row = [
-                  prop.propId, // 道具ID
-                  prop.propName, // 道具名稱
-                  `<img src="${prop.propImageId}" alt="${prop.propImageId}" width="50">`, // 道具圖片
-                  prop.propTypeId ? prop.propTypeId : "", // 道具種類
-                  // prop.propType ? prop.propType.propType : "", // 道具种类名称
-
-                  prop.propRarity, // 道具稀有度
-                  prop.propDescription, // 道具描述
-                  prop.createdTime, // 創建時間
-                  prop.updatedTime, // 更新時間
-                  '<button class="btn btn-primary">修改</button>', // 修改按鈕
-                  '<button class="btn btn-danger">刪除</button>', // 刪除按鈕
-                ];
-                console.log(prop.propType + "看這");
-                table.row.add(row); // 將行數據加入表格
-              });
-              table.draw(); // 重新繪製表格
-            })
-
-            .catch((error) => {
-              console.error("Error fetching props data:", error); // 請求失敗時輸出錯誤信息
-            });
-        }
-
-        // 根據 gameId 查找所有道具種類的方法
-        function findAllPropTypesByGameId(gameId) {
-          axios
-            .get(
-              "http://localhost:8080/PlayCentric/prop/findAllPropTypesByGameId",
-              {
-                params: {
-                  gameId: gameId, // 設置請求的參數 gameId
-                },
-              }
-            )
-            .then((res) => {
-              const propTypes = res.data; // 獲取返回的道具種類數據
-              const propTypeSelect = document.getElementById("propTypeId"); // 獲取模態框中的道具種類選單元素
-              propTypeSelect.innerHTML = ""; // 清空現有的選單選項
-              // 遍歷所有道具種類數據，將每個道具種類加入選單中
-              propTypes.forEach(function (propType) {
-                const option = document.createElement("option");
-                option.value = propType.propTypeId; // 設置選項的值為道具種類ID
-                option.text = propType.propType; // 設置選項的顯示文本為道具種類名稱
-                propTypeSelect.appendChild(option); // 將選項加入選單中
-              });
-            })
-            .catch((error) => {
-              console.error("Error fetching prop types data:", error); // 請求失敗時輸出錯誤信息
-            });
-        }
-
-        // 監聽提交按鈕的點擊事件並執行 findAllPropsByGameId() 和 findAllPropTypesByGameId()
-        const submitBtn = document.getElementById("submitBtn");
-        submitBtn.addEventListener("click", (event) => {
-          event.preventDefault(); // 取消表單的默認提交行為
-          const selectedGameId = document.getElementById("SelectGame").value; // 獲取選中的遊戲ID
-          console.log("Selected Game ID:", selectedGameId); // 輸出選中的遊戲ID
-          findAllPropsByGameId(selectedGameId); // 根據選中的遊戲ID查找所有道具
-          findAllPropTypesByGameId(selectedGameId); // 根據選中的遊戲ID查找所有道具種類
-        });
-
-        // 點擊新增按鈕後出現視窗
-        window.savePropWindow = function () {
-          $("#savePropModal").modal("show");
-        };
-
-        // 新增道具到資料庫
-        function saveProp(prop) {
-          axios
-            .post("http://localhost:8080/PlayCentric/prop/saveProp", prop)
-            .then((res) => {
-              console.log("道具已成功保存", res);
-              $("#savePropModal").modal("hide");
-              // 重新加载当前选中的游戏的道具
-              const selectedGameId =
-                document.getElementById("SelectGame").value;
-              findAllPropsByGameId(selectedGameId);
-            })
-            .catch((error) => {
-              console.error("保存道具時出錯", error);
-            });
-        }
-
-        // 監聽表單提交事件
-        const savePropForm = document.getElementById("savePropForm");
-        savePropForm.addEventListener("submit", function (event) {
-          event.preventDefault(); // 防止表單的默認提交行為
-
-          const prop = {
-            propName: document.getElementById("propName").value,
-            propRarity: document.getElementById("propRarity").value,
-            propDescription: document.getElementById("propDescription").value,
-            propImageId: document.getElementById("propImageId").value,
-            propTypeId: document.getElementById("propTypeId").value,
-            gameId: document.getElementById("SelectGame").value, // 使用選擇的遊戲ID
-            createdTime: new Date().toISOString(), // 當前時間
-          };
-
-          saveProp(prop); // 调用保存道具函数
-        });
-      });
-    </script>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.js}"></script>
+	<script th:src="@{/js/dataTables.js}"></script>
+	<script th:src="@{/js/axios.min.js}"></script>
+    <script th:src="@{/js/prop/propSheet.js}"></script>
   </body>
 </html>
