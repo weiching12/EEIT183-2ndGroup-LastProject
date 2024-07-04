@@ -2,34 +2,80 @@ package com.playcentric.controller.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.playcentric.model.member.Member;
 import com.playcentric.service.member.MemberService;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
 
 @Controller
+@RequestMapping("/member")
+@SessionAttributes(names = {"loginMember"})
 public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
 	
-	@GetMapping("/member/regist")
+	@GetMapping("/home")
+	public String home() {
+		return "member/home";
+	}
+	
+
+	@GetMapping("/regist")
 	public String registPage() {
 		return "member/registMember";
 	}
 	
-	@PostMapping("/member/regist")
+	@PostMapping("/regist")
 	@ResponseBody
-	public String registMember(@RequestBody Member member) {
-		if (hasInfo(member)) {
-			memberService.addMember(member);
-			return "註冊成功!";
+	public String registMember(@ModelAttribute Member member) {
+		try {
+			if (hasInfo(member)) {
+				memberService.addMember(member);
+				return "註冊成功!";
+			}
+			return "請填妥資料";
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return "請填妥資料";
+		return "註冊失敗";
 	}
+
+	@GetMapping("/login")
+	public String loginPage() {
+		return "member/loginPage";
+	}
+
+	@PostMapping("/login")
+	public String loginPost(@RequestParam String account,@RequestParam String password, Model model, RedirectAttributes redirectAttributes) {
+		Member loginMember = memberService.checkLogin(account, password);
+		if (loginMember==null) {
+			redirectAttributes.addFlashAttribute("errorMsg", "登入失敗");
+			return "redirect:login";
+		}
+		model.addAttribute("loginMember", loginMember);
+		redirectAttributes.addFlashAttribute("okMsg", "登入成功");
+		return "redirect:home";
+	}
+	
+	@GetMapping("/logout")
+	public String logout(SessionStatus status, RedirectAttributes redirectAttributes) {
+		status.setComplete();
+		redirectAttributes.addFlashAttribute("okMsg", "登出完成");
+		return "redirect:home";
+	}
+	
 	
 	private boolean hasInfo(Member member) {
 		return member.getAccount()!=null && 
