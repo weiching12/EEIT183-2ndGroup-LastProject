@@ -25,7 +25,7 @@ public class MemberDto {
 	// private Date registDate;
 	private Date lastLogin;
     private Short role;
-    private Integer photo;
+    private String photo;
     // private Short gender;
     // private Short status;
     private Integer points;
@@ -37,7 +37,7 @@ public class MemberDto {
         this.memId = member.getMemId();
         this.memName = member.getMemName();
         this.nickname = member.getNickname();
-        this.photo = member.getPhoto();
+        this.photo = member.getPhoto()!=null? "":member.getGoogleLogin()!=null? member.getGoogleLogin().getPhoto():"";;
         this.points = member.getPoints();
         this.role = member.getRole();
     }

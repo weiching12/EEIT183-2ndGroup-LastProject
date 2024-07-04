@@ -1,6 +1,7 @@
 package com.playcentric.controller.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,9 +78,15 @@ public class MemberController {
 		return "redirect:home";
 	}
 	
+	@GetMapping("/memManage")
+	public String managePage(Model model) {
+		Page<Member> memPage = memberService.findByPage(1);
+		model.addAttribute("memPage", memPage);
+		return "member/managePage";
+	}
 	
 	private boolean hasInfo(Member member) {
-		return member.getAccount()!=null && 
+		return member.getAccount()!=null &&
 				member.getEmail()!=null &&
 				member.getPassword()!=null &&
 				member.getNickname()!=null &&
