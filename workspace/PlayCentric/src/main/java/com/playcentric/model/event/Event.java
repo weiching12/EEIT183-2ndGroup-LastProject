@@ -22,7 +22,7 @@ public class Event {
     private int eventId;
     private String eventName;
     private String eventDescription;
-    private int eventType;
+    private String eventType;
     private Date eventStartTime;
     private Date eventEndTime;
     private Date eventSignupDeadline;

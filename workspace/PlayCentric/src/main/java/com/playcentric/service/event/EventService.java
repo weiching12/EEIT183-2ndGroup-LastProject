@@ -16,7 +16,7 @@ public class EventService {
 	private EventRepository eventRepo;
 	
 //	建新活動
-	public Event creatEvent(Event event) {
+	public Event createEvent(Event event) {
 		return eventRepo.save(event);
 	}
 
@@ -53,20 +53,18 @@ public class EventService {
         return null;
     }
 	
-//    根據活動名稱進行模糊查詢
+//  根據活動名稱進行模糊查詢
     public List<Event> getEventsByName(String eventName) {
         return eventRepo.findByEventNameContaining(eventName);
     }	
 //	根據活動類型查詢活動
-    public List<Event> getEventsByType(int eventType) {
+    public List<Event> getEventsByType(String eventType) {
         return eventRepo.findByEventType(eventType);
     }
 	
-//    根據活動年份和月份進行查詢
+//  根據活動年份和月份進行查詢
     public List<Event> getEventsByYearAndMonth(int year, int month) {
         return eventRepo.findByYearAndMonth(year, month);
     }
-	
-	
 	
 }
