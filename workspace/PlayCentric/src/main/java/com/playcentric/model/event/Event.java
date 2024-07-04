@@ -23,9 +23,7 @@ public class Event {
     private String eventName;
     private String eventDescription;
     private int eventType;
-    private String eventLocation;
     private Date eventStartTime;
     private Date eventEndTime;
     private Date eventSignupDeadline;
-    private int eventQuotaLimit;
 }
