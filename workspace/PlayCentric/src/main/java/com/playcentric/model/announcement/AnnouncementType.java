@@ -28,7 +28,7 @@ import lombok.Setter;
 public class AnnouncementType {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int annoTypeId;
+	private Integer annoTypeId;
 	private String annoTypeName;
 	
 	@OneToMany(mappedBy = "announcementType")
