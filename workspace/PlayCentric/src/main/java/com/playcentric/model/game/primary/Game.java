@@ -59,7 +59,7 @@ public class Game {
 	private List<ImageLib> imageLibs;
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "game")
 	private List<GameDiscount> gameDiscounts;
-	
+	hrthrthjrtj
 	@Transient
 	private boolean isFirstRelease = true;
 }
