@@ -13,6 +13,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.playcentric.model.member.Member;
+import com.playcentric.model.member.MemberDto;
 import com.playcentric.service.member.MemberService;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -64,7 +65,7 @@ public class MemberController {
 			redirectAttributes.addFlashAttribute("errorMsg", "登入失敗");
 			return "redirect:login";
 		}
-		model.addAttribute("loginMember", loginMember);
+		model.addAttribute("loginMember", new MemberDto(loginMember));
 		redirectAttributes.addFlashAttribute("okMsg", "登入成功");
 		return "redirect:home";
 	}
