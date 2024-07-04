@@ -1,8 +1,6 @@
 package com.playcentric.model.member;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -17,8 +15,7 @@ import lombok.Setter;
 public class GoogleLogin {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer googleId;
+    private String googleId;
     private String name;
     private String photo;
     private String email;
