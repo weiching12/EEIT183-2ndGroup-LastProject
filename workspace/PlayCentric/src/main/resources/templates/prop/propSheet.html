@@ -181,9 +181,10 @@
                 const row = [
                   prop.propId, // 道具ID
                   prop.propName, // 道具名稱
-                  `<img src="${prop.propImageId}" alt="${prop.propName}" width="50">`, // 道具圖片
-				  prop.propTypeId ?  prop.propTypeId : "", // 道具種類
-				  prop.propType ? prop.propType.propType : "", // 道具種類
+                  `<img src="${prop.propImageId}" alt="${prop.propImageId}" width="50">`, // 道具圖片
+                  prop.propTypeId ? prop.propTypeId : "", // 道具種類
+                  // prop.propType ? prop.propType.propType : "", // 道具种类名称
+
                   prop.propRarity, // 道具稀有度
                   prop.propDescription, // 道具描述
                   prop.createdTime, // 創建時間
@@ -192,11 +193,11 @@
                   '<button class="btn btn-danger">刪除</button>', // 刪除按鈕
                 ];
                 console.log(prop.propType + "看這");
-				console.log(prop);
                 table.row.add(row); // 將行數據加入表格
               });
               table.draw(); // 重新繪製表格
             })
+
             .catch((error) => {
               console.error("Error fetching props data:", error); // 請求失敗時輸出錯誤信息
             });
