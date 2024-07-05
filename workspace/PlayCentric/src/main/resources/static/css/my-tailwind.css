@@ -42,6 +42,10 @@
     @apply bg-aside-sub-tw border-gray-900
 }
 
+.left-selected {
+    @apply bg-aside-sub-tw border-gray-900
+}
+
 .btn {
     @apply bg-primary-tw text-white p-2 rounded-md
 }

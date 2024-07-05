@@ -106,7 +106,7 @@ public class AnnoController {
 	
 	@GetMapping("/aaa")
 	public String test() {
-		return "text";
+		return "announcement/back-anno";
 	}
 	
 	
