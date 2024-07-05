@@ -2,58 +2,70 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>加入伴遊</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>加入伴遊</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center">
 			<h5 class="mt-5">加入我們</h5>
-			<span style="font-size: 0.8em;"> 會員編號: <span class="badge badge-secondary" style="font-size: 0.8em;"
-					th:text="${members.memId}"></span>
+			<span style="font-size: 0.8em;"> 會員編號: <span
+				class="badge badge-secondary" style="font-size: 0.8em;"
+				th:text="${members.memId}"></span>
 			</span>
 		</div>
 		<form th:action="@{/playFellow/add}" method="post">
 			<div>
-				<input type="hidden" th:value="${members.memId}" id="memId" name="memId" />
+				<input type="hidden" th:value="${members.memId}" id="memId"
+					name="memId" />
 
 			</div>
 			<div class="form-group">
-				<label for="nickname">伴遊暱稱</label> <input type="text" class="form-control" id="pfnickname"
-					name="pfnickname" required>
+				<label for="nickname">伴遊暱稱</label> <input type="text"
+					class="form-control" id="pfnickname" name="pfnickname" required>
 				<small class="text-danger" id="nicknameError"></small>
 			</div>
 			<div class="form-group">
-				<label for="gender">性別</label> <select class="form-control" id="gender" name="gender" required>
-					<option value="1" th:text="'男生'" th:selected="${members.gender == 1}"></option>
-					<option value="2" th:text="'女生'" th:selected="${members.gender == 2}"></option>
+				<label for="gender">性別</label> <select class="form-control"
+					id="gender" name="gender" required>
+					<option value="1" th:text="'男生'"
+						th:selected="${members.gender == 1}"></option>
+					<option value="2" th:text="'女生'"
+						th:selected="${members.gender == 2}"></option>
 				</select>
 			</div>
 
 			<div class="form-group">
-				<label for="birthday">生日</label> <input type="date" class="form-control" id="birthday" name="birthday"
-					th:value="${members.birthday}" required> <small id="ageDisplay"
-					class="form-text text-muted"></small>
+				<label for="birthday">生日</label> <input type="date"
+					class="form-control" id="birthday" name="birthday"
+					th:value="${members.birthday}" required> <small
+					id="ageDisplay" class="form-text text-muted"></small>
 			</div>
 
 			<div class="form-group">
 				<label for="pfdescription">自我介紹</label>
-				<textarea class="form-control" id="pfdescription" name="pfdescription" rows="5" required></textarea>
+				<textarea class="form-control" id="pfdescription"
+					name="pfdescription" rows="5" required></textarea>
 			</div>
 
 			<!--狀態直接先給value=1 1=待審核 display資訊 -->
-			<div class="form-group" style="display: none;">
-				<label for="pfStatus">狀態</label> <input type="number" class="form-control" id="pfstatus" name="pfstatus"
-					value="1" readonly>
+			<div class="form-group" style="display: none;"><!-- 隱藏 -->
+				<label for="pfStatus">狀態</label> <input type="number"
+					class="form-control" id="pfstatus" name="pfstatus" value="1"
+					readonly>
 			</div>
+			
 
-			<div class="form-group" style="display: none;">
-				<label for="pfCreatedTime">創建時間</label> <input type="date" class="form-control" id="pfCreatedTime"
-					name="pfcreatedTime" th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}" required>
+			<div class="form-group" style="display: none;"><!-- 隱藏 -->
+				<label for="pfCreatedTime">創建時間</label> <input type="date"
+					class="form-control" id="pfCreatedTime" name="pfcreatedTime"
+					th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}"
+					required>
 			</div>
 			<button type="submit" class="btn btn-primary">提交</button>
-			
+
 		</form>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

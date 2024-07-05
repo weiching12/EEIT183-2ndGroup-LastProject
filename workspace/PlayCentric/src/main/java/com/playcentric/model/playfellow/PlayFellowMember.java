@@ -44,7 +44,6 @@ public class PlayFellowMember {
 	@JoinColumn(name = "pfMemImageId")
 	private ImageLib imageLib; // 連接照片庫id
 
-	
 	private Byte pfstatus; // 狀態:1 待審核、2審核失敗、 3開啟，4關閉
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
