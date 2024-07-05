@@ -139,6 +139,21 @@ function populatePropTypeSelect(propTypes, mode, selectedTypeId) {
   });
 }
 
+// 格式化日期時間
+function formatDateTime(dateTimeString) {
+  if (!dateTimeString) {
+    return "";
+  }
+  const date = new Date(dateTimeString);
+  const year = date.getFullYear();
+  const month = ("0" + (date.getMonth() + 1)).slice(-2);
+  const day = ("0" + date.getDate()).slice(-2);
+  const hours = ("0" + date.getHours()).slice(-2);
+  const minutes = ("0" + date.getMinutes()).slice(-2);
+  const seconds = ("0" + date.getSeconds()).slice(-2);
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
 // 根據 gameId 查找所有道具
 function findAllPropsByGameId(gameId) {
   axios
@@ -149,15 +164,18 @@ function findAllPropsByGameId(gameId) {
       const props = res.data;
       table.clear();
       props.forEach(function (prop) {
+        const formattedCreatedTime = formatDateTime(prop.createdTime);
+        const formattedUpdatedTime = formatDateTime(prop.updatedTime);
+
         const row = [
           prop.propId, // 道具ID
           prop.propName, // 道具名稱
-          `<img src="${prop.propImageId}" alt="${prop.propImageId}" width="50">`, // 道具圖片
+          `<img src="${window.location.origin}/PlayCentric/prop/image?id=${prop.propImageId}" alt="${prop.propImageId}" width="60px">`, // 道具圖片
           propTypesMap[prop.propTypeId] || "未知", // 道具種類名稱
           prop.propRarity, // 道具稀有度
           prop.propDescription, // 道具描述
-          prop.createdTime, // 創建時間
-          prop.updatedTime, // 更新時間
+          formattedCreatedTime, // 格式化后的創建時間
+          formattedUpdatedTime, // 格式化后的更新時間
           `<button class="btn btn-primary" data-prop-id="${prop.propId}">修改</button>`, // 修改按鈕
           `<button class="btn btn-danger" data-prop-id="${prop.propId}">刪除</button>`, // 刪除按鈕
         ];

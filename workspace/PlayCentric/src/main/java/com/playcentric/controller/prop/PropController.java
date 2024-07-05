@@ -5,11 +5,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.playcentric.model.ImageLib;
 import com.playcentric.model.game.primary.Game;
@@ -54,6 +56,18 @@ public class PropController {
     @ResponseBody
     public List<Props> findAllPropsByGameId(@RequestParam int gameId) {
         return propService.findPropsByGameId(gameId);
+    }
+    
+    //讀取圖片
+    @GetMapping("/prop/image")
+    public ResponseEntity<byte[]> getMethodName(@RequestParam Integer id) {
+		ImageLib imageLib = imageLibService.findImageById(id);
+		byte[] imageFile = imageLib.getImageFile();
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_JPEG);
+		
+		return new ResponseEntity<byte[]>(imageFile, headers, HttpStatus.OK);
     }
 
     // 根據遊戲ID找尋所有道具類型
