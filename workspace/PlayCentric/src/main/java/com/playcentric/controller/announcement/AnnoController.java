@@ -104,5 +104,10 @@ public class AnnoController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/aaa")
+	public String test() {
+		return "text";
+	}
+	
 	
 }

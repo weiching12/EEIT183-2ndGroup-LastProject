@@ -10,6 +10,17 @@
     background-color: #5d6fc9dc;
 }
 
+.bg-aside-tw {
+    background-color: #92d6ec;
+}
+
+.border-aside-tw {
+    border-color: #92d6ec;
+}
+
+.bg-aside-sub-tw {
+    background-color: #d8f4ff;
+}
 
 .border-primary-sub-tw {
     border-color: #5d6fc9dc;
@@ -23,12 +34,20 @@
     background-color: #c4e8f4;
 }
 
+.leftmenuitem {
+    @apply border-aside-tw border-2 rounded-md
+}
+
+.leftmenuitem:hover {
+    @apply bg-aside-sub-tw border-gray-900
+}
+
 .btn {
     @apply bg-primary-tw text-white p-2 rounded-md
 }
 
 .btn:hover {
-    background-color: #5d6fc9dc;
+    @apply border-primary-sub-tw
 }
 
 .noscrollbar {
