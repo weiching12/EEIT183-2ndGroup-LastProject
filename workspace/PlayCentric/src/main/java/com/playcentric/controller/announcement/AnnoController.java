@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.playcentric.model.announcement.Announcement;
 import com.playcentric.model.announcement.AnnouncementType;
@@ -31,7 +32,7 @@ public class AnnoController {
 	public String getInsertInfo(Model model) {
 		List<AnnouncementType> allType = aService.findAllType();
 		model.addAttribute("allAnnoType",allType);
-		return "announcement/insertAnno";
+		return "announcement/insert-anno";
 	}
 	
 	//進行新增公告後轉回管理頁面
@@ -48,15 +49,17 @@ public class AnnoController {
 		
 		List<AnnouncementType> allType = aService.findAllType();
 		model.addAttribute("allAnnoType",allType);
-		return "redirect:test-index";
+		return "redirect:/";
 	}
 	
 	//顯示所有公告
-	@GetMapping("/anno/showAllAnno")
+	@GetMapping("/")
 	public String showAllAnno(Model model) {
+		List<AnnouncementType> allType = aService.findAllType();
+		model.addAttribute("allAnnoType",allType);
 		List<Announcement> allAnno = aService.findAll();
 		model.addAttribute("allAnno",allAnno);
-		return "test-index";
+		return "index";
 	}
 	
 	//單個公告詳情
@@ -64,7 +67,7 @@ public class AnnoController {
 	public String getMethodName(@RequestParam Integer annoId,Model model) {
 		Announcement anno = aService.findById(annoId);
 		model.addAttribute("anno",anno);
-		return "announcement/showOneAnno";
+		return "announcement/show-one-anno";
 	}
 	
 	//獲取修改公告資料
@@ -74,9 +77,10 @@ public class AnnoController {
 		List<AnnouncementType> allType = aService.findAllType();
 		model.addAttribute("allAnnoType",allType);
 		model.addAttribute("anno",anno);
-		return "announcement/getupdateanno";
+		return "announcement/update-anno";
 	}
 	
+	//修改公告
 	@PostMapping("/anno/updateAnno")
 	public String updateAnno(@RequestParam Integer annoId,
 			@RequestParam String title,
@@ -90,18 +94,14 @@ public class AnnoController {
 		anno.setLastEditAt(new Date(System.currentTimeMillis()));
 		anno.setAnnouncementType(annoType);
 		aService.updateById(annoId, anno);
-		return "redirect:/anno/showAllAnno";
+		return "redirect:/";
 	}
 	
+	//刪除公告
 	@GetMapping("/anno/deleteAnno")
 	public String deleteAnno(@RequestParam Integer annoId) {
 		aService.delete(annoId);
-		return "redirect:/anno/showAllAnno";
-	}
-	
-	@GetMapping("/test")
-	public String getMethodName() {
-		return "nav";
+		return "redirect:/";
 	}
 	
 	
