@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.playcentric.model.ImageLib;
 import com.playcentric.model.member.Member;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -40,13 +41,14 @@ public class PlayFellowMember {
 
 	private String pfdescription; // 自介
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "pfMemImageId")
-	private ImageLib imageLib; // 連接照片庫id
+	
+
+	@OneToMany(mappedBy = "playFellowMember", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ImageLibPfmemberAssociation> imageLibAssociations; // 使用中介表管理多張照片的關聯
 
 	private Byte pfstatus; // 狀態:1 待審核、2審核失敗、 3開啟，4關閉
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date pfcreatedTime; // 創建時間 SQL自建
 

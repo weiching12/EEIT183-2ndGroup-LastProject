@@ -2,10 +2,7 @@ package com.playcentric.controller.playfellow;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +13,11 @@ import org.springframework.ui.Model;
 import com.playcentric.model.ImageLib;
 import com.playcentric.model.member.Member;
 import com.playcentric.model.member.MemberRepository;
+import com.playcentric.model.playfellow.ImageLibPfmemberAssociation;
+import com.playcentric.model.playfellow.ImageLibPfmemberAssociationRepository;
+import com.playcentric.model.playfellow.ImageLibRepository;
 import com.playcentric.model.playfellow.PlayFellowMember;
 import com.playcentric.model.playfellow.PlayFellowMemberRepository;
-import com.playcentric.service.member.MemberService;
 import com.playcentric.service.playfellow.PlayFellowMemberService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +37,10 @@ public class PlayFellowMemberController {
 	private MemberRepository memberRepository;
 	@Autowired
 	private PlayFellowMemberRepository playFellowMemberRepository;
+	@Autowired
+	private ImageLibRepository imageLibRepository;
+	@Autowired
+	private ImageLibPfmemberAssociationRepository imageLibPfmemberAssociationRepository;
 
 	@GetMapping("/playFellow/member")
 	public String getAllPlayFellowMembers(Model model) {
@@ -46,7 +49,7 @@ public class PlayFellowMemberController {
 		return "playFellow/PlayFellowMembers";
 	}
 
-	@GetMapping("/playFellow/memId/{memId}")//從memId下去查
+	@GetMapping("/playFellow/memId/{memId}") // 從memId下去查
 	public String getMemberByIdAndAddPFmem(@PathVariable int memId, Model model) {
 		Optional<Member> optMember = memberRepository.findById(memId);// 找會員id 性別和生日存到model
 		System.out.println(memId);
@@ -63,7 +66,7 @@ public class PlayFellowMemberController {
 	}
 
 	// add伴遊者資料
-	@PostMapping("/playFellow/add")//按下新增
+	@PostMapping("/playFellow/add") // 按下新增
 	public String AddPlayFellowMember(@ModelAttribute("members") Member member,
 			@ModelAttribute("playFellowMember") PlayFellowMember playFellowMember) {
 
@@ -92,17 +95,26 @@ public class PlayFellowMemberController {
 	}
 
 	@ResponseBody
-	@PostMapping("/playFellow/add/Images") // 要存照片entity+pfmember的照片編號
-	public String addImageFile(@RequestParam("file") MultipartFile[] file) throws IOException {
+	@GetMapping("/playFellow/add/Images") // 要存照片entity+pfmember的照片編號
+	public String addImageFile(@RequestParam("file") MultipartFile[] file,
+			@RequestParam("playFellowId") Integer playFellowId) throws IOException {
 
-		List<ImageLib> imageMemberList = new ArrayList<>();
+		// 找到對應的playFellowId
+		PlayFellowMember playFellowMember = playFellowMemberService.getPlayFellowMemberById(playFellowId);
+
+		List<ImageLibPfmemberAssociation> associations = new ArrayList<>();
 
 		for (MultipartFile oneFile : file) {
 			ImageLib imageLib = new ImageLib();
 			imageLib.setImageFile(oneFile.getBytes());
-			
-			imageMemberList.add(imageLib);
+
+			ImageLib saveImage = imageLibRepository.save(imageLib);
+
+			ImageLibPfmemberAssociation ipfa = new ImageLibPfmemberAssociation(playFellowMember, saveImage);
+
+			associations.add(ipfa);
 		}
+		imageLibPfmemberAssociationRepository.saveAll(associations);
 
 		return "上傳歐給";
 	}
