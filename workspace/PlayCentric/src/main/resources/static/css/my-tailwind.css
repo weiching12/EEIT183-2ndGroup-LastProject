@@ -34,6 +34,10 @@
     background-color: #c4e8f4;
 }
 
+a {
+    @apply text-blue-500
+}
+
 .leftmenuitem {
     @apply border-aside-tw border-2 rounded-md
 }
@@ -63,23 +67,18 @@
     display: none;
 }
 
-
-body {
-    @apply bg-main
-}
-
 .dropmenu {
-    @apply absolute w-max right-0 px-1 py-1 rounded-md bg-primary-sub-tw
+    @apply absolute w-max right-0 px-1 py-1 rounded-md bg-gray-800
 }
 
 .dropmenu-m {
-    @apply transition-all duration-200 bg-primary-sub-tw
+    @apply transition-all duration-200 bg-gray-800
 }
 
 .menu-item {
-    @apply transition-all duration-200 p-2 rounded-lg border-2 border-primary-sub-tw bg-primary-sub-tw;
+    @apply transition-all duration-200 p-2 rounded-lg border-2 border-gray-800 bg-gray-800;
 }
 
 .menu-item:hover {
-    @apply bg-sky-500 border-yellow-200;
+    @apply bg-opacity-20 border-sky-600;
 }

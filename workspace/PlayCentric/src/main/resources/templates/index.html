@@ -15,8 +15,7 @@
 			<main>
 				<section class="text-center">
 					<h2 class="text-4xl">公告</h2>
-					<article
-						class="my-3 bg-content p-3 rounded-md border-2 border-black shadow h-48 overflow-auto noscrollbar">
+					<article class="my-3 bg-content p-3 rounded-md border-2 border-black shadow">
 						<div class="text-right">
 							<select class="type" name="type">
 								<option value="0">全部</option>
@@ -25,18 +24,23 @@
 								</th:block>
 							</select>
 						</div>
-						<div class="grid md:grid-cols-12 result">
-							<th:block th:each="anno:${allAnno}">
-								<div class="h-auto col-span-5 text-left text-2xl text-violet-500 font-bold">
-									<a th:href="@{/anno/showOneAnno(annoId=${anno.annoId})}"
-										th:text="[ + ${anno.announcementType.annoTypeName} + ] + ${anno.title}"></a>
-								</div>
-								<div class="h-auto col-span-5 text-right text-2xl">
-									<span th:text="${#dates.format(anno.createAt,'yyyy年MM月dd日')}"></span>
-								</div>
-								<div class="col-span-2"></div>
-							</th:block>
+
+						<div class=" h-48 overflow-auto noscrollbar">
+							<div class="grid md:grid-cols-12 anno">
+								<th:block th:each="anno:${allAnno}">
+									<div class="h-auto col-span-5 text-left text-2xl text-violet-500 font-bold">
+										<a th:href="@{/anno/showOneAnno(annoId=${anno.annoId})}"
+											th:text="[ + ${anno.announcementType.annoTypeName} + ] + ${anno.title}"></a>
+									</div>
+									<div class="h-auto col-span-5 text-right text-2xl">
+										<span th:text="${#dates.format(anno.createAt,'yyyy年MM月dd日')}"></span>
+									</div>
+									<div class="col-span-2"></div>
+								</th:block>
+							</div>
+
 						</div>
+
 					</article>
 				</section>
 			</main>
