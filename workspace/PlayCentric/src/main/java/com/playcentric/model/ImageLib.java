@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -26,6 +27,7 @@ public class ImageLib {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer imageId;
 	
+	@Lob
 	private byte[] imageFile;
 	
 	@ManyToMany(mappedBy = "imageLibs")

@@ -2,33 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-.bg-primary-tw {
-    background-color: #1e36b0dc;
+.top-nav a {
+    @apply text-white
 }
 
-.bg-primary-sub-tw {
-    background-color: #5d6fc9dc;
+.left-nav a {
+    @apply text-black
 }
 
-
-.border-primary-sub-tw {
-    border-color: #5d6fc9dc;
+a {
+    @apply text-blue-500
 }
 
-.bg-main {
-    background-color: #eef8fcfe;
+.leftmenuitem {
+    @apply border-2 rounded-md border-slate-300
 }
 
-.bg-content {
-    background-color: #c4e8f4;
+.leftmenuitem:hover {
+    @apply border-gray-900 bg-slate-200
 }
 
-.btn {
-    @apply bg-primary-tw text-white p-2 rounded-md
+.left-selected {
+    @apply border-gray-900 bg-slate-200
+}
+
+.btn-sky {
+    @apply text-white py-2 px-3 cursor-pointer bg-sky-500
+}
+
+.btn-danger {
+    @apply text-white py-2 px-3 cursor-pointer bg-red-700
 }
 
 .btn:hover {
-    background-color: #5d6fc9dc;
+    @apply bg-opacity-50
 }
 
 .noscrollbar {
@@ -40,23 +47,18 @@
     display: none;
 }
 
-
-body {
-    @apply bg-main
-}
-
 .dropmenu {
-    @apply absolute w-max right-0 px-1 py-1 rounded-md bg-primary-sub-tw
+    @apply absolute w-max right-0 px-1 py-1 rounded-md bg-gray-800
 }
 
 .dropmenu-m {
-    @apply transition-all duration-200 bg-primary-sub-tw
+    @apply transition-all duration-200 bg-gray-800
 }
 
 .menu-item {
-    @apply transition-all duration-200 p-2 rounded-lg border-2 border-primary-sub-tw bg-primary-sub-tw;
+    @apply transition-all duration-200 p-2 rounded-lg border-2 border-gray-800 bg-gray-800;
 }
 
 .menu-item:hover {
-    @apply bg-sky-500 border-yellow-200;
+    @apply bg-gray-500 border-sky-600;
 }
