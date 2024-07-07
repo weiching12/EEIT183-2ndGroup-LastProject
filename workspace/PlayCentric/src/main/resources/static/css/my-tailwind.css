@@ -60,5 +60,5 @@ a {
 }
 
 .menu-item:hover {
-    @apply bg-opacity-20 border-sky-600;
+    @apply bg-gray-500 border-sky-600;
 }

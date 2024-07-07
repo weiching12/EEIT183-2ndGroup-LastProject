@@ -28,7 +28,7 @@ public class AnnoController {
 	private AnnouncementService aService;
 	
 	//獲取新增公告資料
-	@GetMapping("/anno/getInsertAnnoInfo")
+	@GetMapping("/anno/getInsertAnno")
 	public String getInsertInfo(Model model) {
 		List<AnnouncementType> allType = aService.findAllType();
 		model.addAttribute("allAnnoType",allType);
