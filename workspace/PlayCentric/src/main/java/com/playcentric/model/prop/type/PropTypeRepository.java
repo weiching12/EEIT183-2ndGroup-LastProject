@@ -1,4 +1,4 @@
-package com.playcentric.model.prop;
+package com.playcentric.model.prop.type;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

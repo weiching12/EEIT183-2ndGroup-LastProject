@@ -1,4 +1,4 @@
-package com.playcentric.model.prop;
+package com.playcentric.model.prop.MemberPropInventory;
 
 import java.io.Serializable;
 import java.util.Objects;

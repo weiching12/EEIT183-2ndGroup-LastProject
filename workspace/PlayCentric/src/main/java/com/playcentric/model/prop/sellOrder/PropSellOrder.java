@@ -1,6 +1,9 @@
-package com.playcentric.model.prop;
+package com.playcentric.model.prop.sellOrder;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import com.playcentric.model.prop.MemberPropInventory.MemberPropInventory;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -37,7 +40,7 @@ public class PropSellOrder {
 
     private int amount;
     private int quantity;
-    private Date saleTime;
-    private Date expiryTime;
+    private LocalDateTime saleTime;
+    private LocalDateTime expiryTime;
     private byte orderStatus;
 }

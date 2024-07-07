@@ -1,9 +1,10 @@
-package com.playcentric.model.prop;
+package com.playcentric.model.prop.type;
 
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.playcentric.model.game.primary.Game;
+import com.playcentric.model.prop.Props;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

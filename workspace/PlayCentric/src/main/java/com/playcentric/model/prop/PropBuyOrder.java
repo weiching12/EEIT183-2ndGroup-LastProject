@@ -3,6 +3,8 @@ package com.playcentric.model.prop;
 import java.util.Date;
 import com.playcentric.model.game.transaction.Payment;
 import com.playcentric.model.member.Member;
+import com.playcentric.model.prop.sellOrder.PropSellOrder;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

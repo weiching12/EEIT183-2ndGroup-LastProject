@@ -16,10 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.playcentric.model.ImageLib;
 import com.playcentric.model.game.primary.Game;
 import com.playcentric.model.prop.Props;
-import com.playcentric.model.prop.PropType;
+import com.playcentric.model.prop.type.PropType;
 import com.playcentric.service.game.GameService;
 import com.playcentric.service.prop.PropService;
-import com.playcentric.service.prop.PropTypeService;
+import com.playcentric.service.prop.type.PropTypeService;
 import com.playcentric.service.ImageLibService;
 
 @Controller
@@ -40,7 +40,7 @@ public class PropController {
 
     // 進入道具頁面
     @GetMapping("/prop/propSheet")
-    public String addHouse() {
+    public String showPropPage() {
         return "prop/propSheet";
     }
 

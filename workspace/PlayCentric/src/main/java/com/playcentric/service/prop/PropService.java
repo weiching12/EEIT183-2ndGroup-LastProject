@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.playcentric.model.ImageLib;
-import com.playcentric.model.prop.PropType;
 import com.playcentric.model.prop.Props;
 import com.playcentric.model.prop.PropsRepository;
+import com.playcentric.model.prop.type.PropType;
 
 import jakarta.persistence.EntityNotFoundException;
 

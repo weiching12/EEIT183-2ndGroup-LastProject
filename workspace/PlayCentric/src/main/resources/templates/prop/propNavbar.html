@@ -2,8 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Market Navbar</title>
+    <title>Prop Navbar</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/dataTables.dataTables.css}" />
     <style>
         .navbar-table {
             width: 50vw;
@@ -26,10 +28,9 @@
     <table class="table table-bordered navbar-table">
         <tbody>
             <tr>
-                <td><a th:href="@{/market/SelectGame}">道具總覽</a></td>
-                <td><a th:href="@{/market/SelectGame}">拍賣場</a></td>
+                <td><a th:href="@{/prop/propSheet}">道具總覽</a></td>
+                <td><a th:href="@{/prop/propSellOrder}">拍賣場</a></td>
                 <td><a th:href="@{/market/SelectGame}">成交紀錄</a></td>
-                <td><a th:href="@{/market/SelectGame}">我的倉庫</a></td>
             </tr>
         </tbody>
     </table>    
