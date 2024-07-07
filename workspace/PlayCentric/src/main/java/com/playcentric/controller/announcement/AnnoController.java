@@ -59,7 +59,7 @@ public class AnnoController {
 		model.addAttribute("allAnnoType",allType);
 		List<Announcement> allAnno = aService.findAll();
 		model.addAttribute("allAnno",allAnno);
-		return "index-2";
+		return "index";
 	}
 	
 	//單個公告詳情
