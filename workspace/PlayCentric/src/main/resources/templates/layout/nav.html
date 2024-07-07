@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <nav class="mb-2 bg-black">
+    <nav class="mb-2 bg-black top-nav">
         <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo及名稱 -->
@@ -27,7 +27,7 @@
                 <div class="text-white flex items-center font-semibold relative z-50">
                     <div class="hidden md:flex md:ml-6 md:space-x-4 select-none cursor-pointer">
                         <div>
-                            <a href="#">管理介面</a>
+                            <a th:href="@{/back/anno}">管理介面</a>
                         </div>
                         <div class="relative tag">
                             會員
@@ -161,7 +161,7 @@
         <div id="mobile-menu" class="text-white bg-black md:hidden hidden text-center select-none relative z-50">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:pl-1">
                 <div>
-                    <a href="#">管理介面</a>
+                    <a th:href="@{/back/anno}">管理介面</a>
                 </div>
                 <div class="tag-m">
                     會員

@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-nav a {
+.top-nav a {
     @apply text-white
+}
+
+.left-nav a {
+    @apply text-black
 }
 
 a {
@@ -11,23 +15,27 @@ a {
 }
 
 .leftmenuitem {
-    @apply border-2 rounded-md
+    @apply border-2 rounded-md border-slate-300
 }
 
 .leftmenuitem:hover {
-    @apply border-gray-900
+    @apply border-gray-900 bg-slate-200
 }
 
 .left-selected {
-    @apply border-gray-900
+    @apply border-gray-900 bg-slate-200
 }
 
 .btn-sky {
-    @apply text-white py-2 px-3 rounded-3xl cursor-pointer bg-sky-500
+    @apply text-white py-2 px-3 cursor-pointer bg-sky-500
+}
+
+.btn-danger {
+    @apply text-white py-2 px-3 cursor-pointer bg-red-700
 }
 
 .btn:hover {
-    @apply bg-opacity-80
+    @apply bg-opacity-50
 }
 
 .noscrollbar {

@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/output.css}">
-    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/tabulator.min.css}">
+    <script th:src="@{/js/tabulator.min.js}"></script>
+    <title>PlayCentric-後台管理-公告</title>
 </head>
 
 <body class="h-screen flex flex-col w-screen">
@@ -14,11 +16,11 @@
 
     <div class="flex flex-1">
         <!-- 側邊欄 -->
-        <aside class="w-64 bg-aside-tw text-black flex flex-col">
+        <aside class="w-64 bg-slate-300 text-black flex flex-col rounded-md">
             <div class="p-4">
                 <h1 class="text-2xl font-semibold">管理選單</h1>
             </div>
-            <nav class="flex-1">
+            <nav class="flex-1 left-nav">
                 <ul>
                     <li class="leftmenuitem px-4">
                         <a href="#" class="block py-2.5 px-4 rounded ">會員管理</a>
@@ -43,26 +45,70 @@
         </aside>
 
         <!-- 主要內容區域 -->
-        <main class="flex-1 p-6 bg-main">
-            <h2 class="text-3xl font-semibold mb-6">儀表板</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- 卡片範例 -->
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <h3 class="text-xl font-semibold mb-2">統計資料 1</h3>
-                    <p class="text-gray-700">這裡是一些統計資料的簡介或數據。</p>
-                </div>
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <h3 class="text-xl font-semibold mb-2">統計資料 2</h3>
-                    <p class="text-gray-700">這裡是一些統計資料的簡介或數據。</p>
-                </div>
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <h3 class="text-xl font-semibold mb-2">統計資料 3</h3>
-                    <p class="text-gray-700">這裡是一些統計資料的簡介或數據。</p>
-                    <div></div>
+        <main class="w-full h-auto">
+            <div class="w-full h-auto flex flex-col justify-center px-8">
+                <input class="mb-4 p-2 border border-gray-300 rounded-md" type="text" id="search" placeholder="搜尋...">
+                <div class="w-full" id="table">
+                    <table class="w-full border-collapse shadow">
+                        <thead>
+                            <tr>
+                                <th class="text-center w-1/4 border">標題</th>
+                                <th class="text-center w-1/6 border">創建日期</th>
+                                <th class="text-center w-2/6 border">最後編輯時間</th>
+                                <th class="text-center w-1/4 border">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="anno:${allAnno}">
+                                <tr>
+                                    <td class="border p-3 title">
+                                        <a th:href="@{/anno/showOneAnno(annoId=${anno.annoId})}"
+                                            th:text="[ + ${anno.announcementType.annoTypeName} + ] + ${anno.title}"
+                                            class="text-center"></a>
+                                    </td>
+                                    <td th:text="${anno.createAt}" class="text-center border p-3 createAt"></td>
+                                    <td th:text="${#dates.format(anno.lastEditAt,'yyyy-MM-dd HH:mm:ss')}"
+                                        class="text-center border p-3 lastEditAt"></td>
+                                    <td class="text-center border p-3">
+                                        <a th:href="@{/anno/getUpdatAnno(annoId=${anno.annoId})}"
+                                            class="btn btn-sky rounded-md me-2 block md:inline">修改</a>
+                                        <a th:href="@{/anno/deleteAnno(annoId=${anno.annoId})}"
+                                            class="btn btn-danger rounded-md me-2 block md:inline">刪除</a>
+                                    </td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>
     </div>
+
+    <script>
+        let allData = document.querySelectorAll('tbody tr');
+        const search = document.querySelector('#search');
+
+        allData.forEach(elm => {
+            elm.addEventListener('mouseenter', () => {
+                elm.classList.add('bg-gray-300');
+            })
+            elm.addEventListener('mouseleave', () => {
+                elm.classList.remove('bg-gray-300');
+            })
+        });
+
+        search.addEventListener('keyup', () => {
+            allData.forEach(data => {
+                if (!data.innerText.includes(search.value)) {
+                    data.classList.add('hidden');
+                }
+                else {
+                    data.classList.remove('hidden');
+                }
+            });
+        })
+    </script>
+
 </body>
 
 </html>

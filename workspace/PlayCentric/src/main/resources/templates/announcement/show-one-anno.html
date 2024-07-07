@@ -15,7 +15,7 @@
             <main class="h-full">
                 <section class="h-full">
                     <h1 th:text="${anno.title}" class="text-center text-5xl"></h1>
-                    <article class="relative m-5 h-full bg-content rounded-md p-5 border-2 border-violet-300  shadow">
+                    <article class="relative m-5 h-full bg-content rounded-md p-5 border-2 shadow">
                         <div th:text="${anno.content}"></div>
                         <div class="absolute right-5 bottom-5"
                             th:text="最後編輯時間： + ${#dates.format(anno.lastEditAt,'yyyy年MM月dd日 HH:mm:ss')}"></div>
