@@ -49,7 +49,8 @@ public class Forum {
 	private String textsIntro;
 	
 	@Transient
-	private ForumGameDto gameIfo;
+	private String gameName;
+//	private ForumGameDto gameIfo;
 	
 //	public Forum() {
 //		Game game = getGame();

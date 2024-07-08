@@ -34,11 +34,9 @@ public class ForumService {
 		return forumRepository.findById(forumId);
 	}
 
-	public Optional<Forum> findForumByGameName(String gameName) {
-		Game game = new Game();
-		gameRepository.findByGameNameContaining(gameName);
-		return forumRepository.findByGame(game);
-	}
+	public List<Forum> searchByTextsIntro(String keyword) {
+        return forumRepository.findByTextsIntroContaining(keyword);
+    }
 
 	public Forum saveForum(Forum forum) {
 		return forumRepository.save(forum);

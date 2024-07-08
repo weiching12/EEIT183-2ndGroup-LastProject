@@ -72,7 +72,7 @@
                             <div class="dropmenu hidden">
                                 <ul>
                                     <li class="menu-item">
-                                        <a href="#">我的選項</a>
+                                        <a th:href="@{/forum/page}">首頁</a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="#">我的選項</a>
@@ -204,7 +204,7 @@
                 </div>
                 <div class="tag-m">
                     討論區
-                    <div class="dropmenu-m hidden">
+                    <div class="dropmenu-m hidden" th:href="@{/messages/page}">
                         <ul>
                             <li class="menu-item">
                                 <a href="#">我的選項</a>
