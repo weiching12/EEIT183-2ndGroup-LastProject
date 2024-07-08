@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.playcentric.model.forum.Forum;
@@ -21,56 +22,55 @@ public class ForumController {
 	@Autowired
 	private ForumService forumService;
 
-
-	@GetMapping("/add")
+	@GetMapping("forum/add")
 	public String showAddPage(Model model) {
 		model.addAttribute("forum", new Forum());
 		return "forum/addForumPage";
 	}
 
-	@PostMapping("/addPost")
+	@PostMapping("forum/addPost")
 	public String addForum(@RequestParam("textsIntro") String textsIntro) {
 		Forum forum = new Forum();
 		forum.setTextsIntro(textsIntro);
 		forumService.saveForum(forum);
-		return "redirect:/forum/forumhome";
+		return "redirect:/forum/page";
 	}
 
-	@GetMapping("/edit")
+	@GetMapping("/forum/edit")
 	public String showEditPage(@RequestParam("forumId") int forumId, Model model) {
 		Optional<Forum> forum = forumService.findForumById(forumId);
-        model.addAttribute("forum", forum.get());
-		return "forum/editPage"; // 返回到名為"edit"的HTML模板，顯示編輯forum的表單
+		if (forum.isPresent()) {
+			model.addAttribute("forum", forum.get());
+			return "forum/editPage"; // 返回到名為"editPage"的HTML模板，顯示編輯forum的表單
+		} else {
+			return "redirect:/forum/forumhome"; // 如果forum不存在，重定向到首頁
+		}
 	}
 
-	@PostMapping("/editPost")
+	@PutMapping("/forum/editPost")
 	public String editForum(@RequestParam("forumId") int forumId, @RequestParam("textsIntro") String textsIntro) {
-		 Optional<Forum> optionalForum = forumService.findForumById(forumId);
-	        if (optionalForum.isPresent()) {
-	            Forum forum = optionalForum.get();
-	            forum.setTextsIntro(textsIntro);
-	            forumService.saveForum(forum);
-	        }
-		return "redirect:/forums/forumshome"; // 更新完後重定向到首頁
+		Optional<Forum> optionalForum = forumService.findForumById(forumId);
+		if (optionalForum.isPresent()) {
+			Forum forum = optionalForum.get();
+			forum.setTextsIntro(textsIntro);
+			forumService.saveForum(forum);
+		}
+		return "redirect:/forum/page"; // 更新完後重定向到首頁
 	}
 
-	@DeleteMapping("/delete")
+	@DeleteMapping("/forum/delete")
 	public String deleteForum(@RequestParam("forumId") int forumId) {
 		forumService.deleteForumById(forumId);
-		return "redirect:/forum/home";
+		return "redirect:/forum/page";
 	}
 
-	@GetMapping("/search")
-	public String searchForum(@RequestParam("gameName") String gameName, Model model) {
-		 Optional<Forum> forum = forumService.findForumByGameName(gameName);
-	        if (forum.isPresent()) {
-	            model.addAttribute("forum", forum.get());
-	        } else {
-	            model.addAttribute("message", "Forum not found");
-	        }
-		return "forum/search";
-	}
-	
+	 @GetMapping("/forum/search")
+	 public String search(@RequestParam("keyword") String keyword, Model model) {
+	        List<Forum> forums = forumService.searchByTextsIntro(keyword);
+	        model.addAttribute("forums", forums);
+	        return "forum/search"; // 返回包含查詢結果的HTML視圖
+	    }
+
 	@GetMapping("/forum/page")
 	public String findByPage(@RequestParam(value = "p", defaultValue = "1") Integer pageNum, Model model) {
 
