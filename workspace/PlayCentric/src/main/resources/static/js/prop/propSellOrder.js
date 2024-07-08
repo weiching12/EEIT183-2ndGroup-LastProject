@@ -67,12 +67,6 @@ function htmlMaker(data, table) {
         const propName = response.data.propName; // 假设道具名稱字段为 propName
         const propImageId = response.data.propImageId; // 假设图片ID字段为 propImageId
 
-        // 構建購買按鈕的HTML代碼，根據條件決定是否顯示 7改成登入會員的id
-        let buyButtonHtml = "";
-        if (item.sellerMemId !== userId && item.orderStatus == 0) {
-          buyButtonHtml = `<button id="buyButton-${item.orderId}">購買</button>`;
-        }
-
         table.row
           .add([
             item.orderId,
@@ -85,7 +79,6 @@ function htmlMaker(data, table) {
             item.sellerMemId,
             orderStatusText,
             // 購買按鈕
-            buyButtonHtml,
           ])
           .draw(false); // 将数据行添加到 DataTable 中
 
