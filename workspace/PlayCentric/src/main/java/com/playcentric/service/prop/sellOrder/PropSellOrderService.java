@@ -18,6 +18,7 @@ public class PropSellOrderService {
 
 	@Autowired
 	PropSellOrderRepository propSellOrderRepo;
+	
 
 	public List<PropSellOrderDto> findAllByGameId(int id) {
 		List<PropSellOrder> propSellOrders = propSellOrderRepo.findAllByGameId(id);
@@ -33,14 +34,22 @@ public class PropSellOrderService {
 		propSellOrderDto.setExpiryTime(order.getExpiryTime().format(formatter));
 		propSellOrderDto.setSaleTime(order.getSaleTime().format(formatter));
 
-		// 如果時間到期訂將單狀態改已下架
+		// 如果時間到期將訂單狀態改已下架
 		if (LocalDateTime.now().isBefore(order.getExpiryTime())) {
 			propSellOrderDto.setOrderStatus(order.getOrderStatus());
 		} else {
 			{
 				propSellOrderDto.setOrderStatus((byte)2);
-			}
+				order.setOrderStatus((byte) 2);
+				propSellOrderRepo.save(order);			}
 		}
+		
+		//如果數量是0將訂單狀態改已售完		
+		if(order.getQuantity()==0) {
+			order.setOrderStatus((byte)1);
+			propSellOrderRepo.save(order);			
+		}
+		
 
 		// 將 MemberPropInventory 轉換為 MemberPropInventoryDto
 		MemberPropInventoryDto memberPropInventoryDto = new MemberPropInventoryDto(order.getMemberPropInventory());
@@ -50,5 +59,4 @@ public class PropSellOrderService {
 		propSellOrderDto.setQuantity(order.getQuantity());
 		propSellOrderDto.setSellerMemId(order.getSellerMemId());
 		return propSellOrderDto;
-	}
-}
+	}}
