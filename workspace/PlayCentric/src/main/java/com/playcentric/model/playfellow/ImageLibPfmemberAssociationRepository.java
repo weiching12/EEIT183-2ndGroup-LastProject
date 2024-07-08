@@ -4,8 +4,12 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.playcentric.model.ImageLib;
+
 
 public interface ImageLibPfmemberAssociationRepository extends JpaRepository<ImageLibPfmemberAssociation, Integer> {
 
-//	List<ImageLibPfmemberAssociation> findByplayFellowId(Integer playFellowId);
+    List<ImageLibPfmemberAssociation> findByPlayFellowMember(PlayFellowMember playFellowMember);
+    
+    void deleteByImageLib(ImageLib imageLib);
 }

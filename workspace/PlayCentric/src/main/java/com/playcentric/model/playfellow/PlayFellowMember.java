@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.playcentric.model.ImageLib;
 import com.playcentric.model.member.Member;
 
@@ -48,7 +50,7 @@ public class PlayFellowMember {
 
 	private Byte pfstatus; // 狀態:1 待審核、2審核失敗、 3開啟，4關閉
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date pfcreatedTime; // 創建時間 SQL自建
 
