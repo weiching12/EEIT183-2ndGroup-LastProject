@@ -7,12 +7,17 @@ import org.springframework.stereotype.Service;
 
 import com.playcentric.model.game.primary.Game;
 import com.playcentric.model.game.primary.GameRepository;
+import com.playcentric.model.game.primary.GameTypeLib;
+import com.playcentric.model.game.primary.GameTypeLibRepository;
 
 @Service
 public class GameService {
 	
 	@Autowired
 	private GameRepository gRepo;
+	
+	@Autowired
+	private GameTypeLibRepository tRepo;
 	
 	//新增遊戲
 	public Game insert(Game game) {
@@ -51,6 +56,11 @@ public class GameService {
 	public void delete(Integer id) {
 		Game game = findById(id);
 		gRepo.delete(game);
+	}
+	
+	//獲取所有遊戲分類
+	public List<GameTypeLib> findAllType() {
+		return tRepo.findAll();
 	}
 	
 }

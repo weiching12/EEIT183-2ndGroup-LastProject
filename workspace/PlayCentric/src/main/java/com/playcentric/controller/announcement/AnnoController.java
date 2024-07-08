@@ -107,6 +107,8 @@ public class AnnoController {
 	//公告後台
 	@GetMapping("/back/anno")
 	public String backAnno(Model model) {
+		List<AnnouncementType> allType = aService.findAllType();
+		model.addAttribute("allType",allType);
 		List<Announcement> allAnno = aService.findAll();
 		model.addAttribute("allAnno",allAnno);
 		return "announcement/back-anno";
