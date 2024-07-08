@@ -37,12 +37,12 @@ public class PropSellOrderController {
         return "prop/propSellOrder";
     }
     
+
     // 根據遊戲Id找所有賣單
     @GetMapping("/prop/findAllpropSellOrder")
     @ResponseBody
-    public List<PropSellOrderDto> finAllpropSellOrder(@RequestParam("gameId") int gameId){
-    	List<PropSellOrderDto> propSellOrders = propSellOrderService.findAllByGameId(gameId);
-    	return propSellOrders;
+    public List<PropSellOrderDto> findAllPropSellOrder(@RequestParam("gameId") int gameId) {
+        return propSellOrderService.findAllByGameId(gameId);
     }
     
 

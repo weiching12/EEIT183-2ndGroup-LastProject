@@ -1,52 +1,64 @@
-//package com.playcentric.service.prop.buyOrder;
-//
-//import java.time.LocalDateTime;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import com.playcentric.model.member.Member;
-//import com.playcentric.model.prop.buyOrder.PropBuyOrder;
-//import com.playcentric.model.prop.buyOrder.PropBuyOrderId;
-//import com.playcentric.model.prop.buyOrder.PropBuyOrderRepository;
-//import com.playcentric.model.prop.sellOrder.PropSellOrder;
-//import com.playcentric.model.prop.sellOrder.PropSellOrderRepository;
-//import com.playcentric.service.prop.sellOrder.PropSellOrderService;
-//
-//@Service
-//public class PropBuyOrderService {
-//
-//    @Autowired
-//    private PropSellOrderRepository propSellOrderRepo;
-//
-//    @Autowired
-//    private PropBuyOrderRepository propBuyOrderRepo;
-//
-//    @Autowired
-//    private PropSellOrderService propSellOrderService;
-//
+package com.playcentric.service.prop.buyOrder;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.playcentric.model.member.Member;
+import com.playcentric.model.prop.buyOrder.PropBuyOrder;
+import com.playcentric.model.prop.buyOrder.PropBuyOrderDto;
+import com.playcentric.model.prop.buyOrder.PropBuyOrderRepository;
+import com.playcentric.model.prop.sellOrder.PropSellOrder;
+import com.playcentric.model.prop.sellOrder.PropSellOrderRepository;
+import com.playcentric.service.prop.sellOrder.PropSellOrderService;
+
+@Service
+public class PropBuyOrderService {
+
+    @Autowired
+    private PropSellOrderRepository propSellOrderRepo;
+
+    @Autowired
+    private PropBuyOrderRepository propBuyOrderRepo;
+
+    @Autowired
+    private PropSellOrderService propSellOrderService;
+
+    public List<PropBuyOrderDto> findPropBuyOrders(int gameId) {
+        List<PropBuyOrder> propBuyOrders = propBuyOrderRepo.findAllByGameId(gameId);
+        return propBuyOrders.stream()
+                            .map(PropBuyOrderDto::new)
+                            .collect(Collectors.toList());
+    }
+
+    // 原有的購買方法保留
 //    public void buyProp(int propSellOrderId, int buyQuantity, Member member, LocalDateTime orderTime, int price) {
-//        // 获取销售订单
+//        // 獲取銷售訂單
 //        PropSellOrder propSellOrder = propSellOrderRepo.findById(propSellOrderId)
 //            .orElseThrow(() -> new RuntimeException("Sell order not found"));
 //
-//        // 创建购买订单
+//        // 創建購買訂單
 //        PropBuyOrder propBuyOrder = new PropBuyOrder();
-//        propBuyOrder.setId(new PropBuyOrderId(propSellOrderId, member.getMemId())); // 设置复合主键
+//        propBuyOrder.setId(new PropBuyOrderId(propSellOrderId, member.getMemId())); // 設置複合主鍵
 //        propBuyOrder.setMember(member);
-//        propBuyOrder.setOrderTime(LocalDateTime.now()); // 设置当前时间
+//        propBuyOrder.setOrderTime(LocalDateTime.now()); // 設置當前時間
 //        propBuyOrder.setQuantity(buyQuantity);
 //        propBuyOrder.setPrice(price);
 //        propBuyOrder.setPropSellOrder(propSellOrder);
-//        // 设置支付信息，假设有支付信息设置方法
+//        // 設置支付信息，假設有支付信息設置方法
 //        // propBuyOrder.setPayment(payment);
 //
-//        // 保存购买订单
+//        // 保存購買訂單
 //        propBuyOrderRepo.save(propBuyOrder);
 //
-//        // 调用卖单service修改卖单的数量
+//        // 調用賣單service修改賣單的數量
 //        propSellOrderService.updateSellOrderQuantity(propSellOrderId, buyQuantity);
-//   
+//
 //        //調用倉庫service修改倉庫的數量
 //        
 //    }
-//}
+}

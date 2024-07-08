@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  const userId = 7;
+  const userId = "";
   // 初始化 DataTable
   let myTable = $("#propSellOrderTable").DataTable({
     language: {
@@ -13,7 +13,7 @@ $(document).ready(function () {
     let SelectGame = document.querySelector("#SelectGame");
     let selectedOption = SelectGame.options[SelectGame.selectedIndex];
     const selectedGameId = selectedOption.value;
-    console.log(selectedGameId);
+    // console.log(selectedGameId);
 
     axios({
       method: "get",
@@ -45,7 +45,7 @@ function htmlMaker(data, table) {
     let orderStatusText;
     switch (item.orderStatus) {
       case 0:
-        orderStatusText = "販賣中";
+        orderStatusText = "販售中";
         break;
       case 1:
         orderStatusText = "已售完";
