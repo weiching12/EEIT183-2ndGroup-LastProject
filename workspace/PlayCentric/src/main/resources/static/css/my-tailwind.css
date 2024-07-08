@@ -1,3 +1,64 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.top-nav a {
+    @apply text-white
+}
+
+.left-nav a {
+    @apply text-black
+}
+
+a {
+    @apply text-blue-500
+}
+
+.leftmenuitem {
+    @apply border-2 rounded-md border-slate-300
+}
+
+.leftmenuitem:hover {
+    @apply border-gray-900 bg-slate-200
+}
+
+.left-selected {
+    @apply border-gray-900 bg-slate-200
+}
+
+.btn-sky {
+    @apply text-white py-2 px-3 cursor-pointer bg-sky-500
+}
+
+.btn-danger {
+    @apply text-white py-2 px-3 cursor-pointer bg-red-700
+}
+
+.btn:hover {
+    @apply bg-opacity-50
+}
+
+.noscrollbar {
+    scrollbar-width: 0;
+    -ms-overflow-style: none;
+}
+
+.noscrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.dropmenu {
+    @apply absolute w-max right-0 px-1 py-1 rounded-md bg-gray-800
+}
+
+.dropmenu-m {
+    @apply transition-all duration-200 bg-gray-800
+}
+
+.menu-item {
+    @apply transition-all duration-200 p-2 rounded-lg border-2 border-gray-800 bg-gray-800;
+}
+
+.menu-item:hover {
+    @apply bg-gray-500 border-sky-600;
+}
