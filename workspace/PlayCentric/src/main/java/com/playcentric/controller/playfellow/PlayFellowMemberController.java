@@ -30,10 +30,13 @@ public class PlayFellowMemberController {
 
 	@Autowired
 	PlayFellowMemberService playFellowMemberService;
+	
 	@Autowired
 	private MemberRepository memberRepository;
+	
 	@Autowired
 	private PlayFellowMemberRepository playFellowMemberRepository;
+	
 	@Autowired
 	private ImageLibPfmemberAssociationRepository imageLibPfmemberAssociationRepository;
 

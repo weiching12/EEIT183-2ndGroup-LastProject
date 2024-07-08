@@ -17,17 +17,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
-
 import com.playcentric.model.ImageLib;
+import com.playcentric.model.ImageLibRepository;
 import com.playcentric.model.member.Member;
 import com.playcentric.model.member.MemberRepository;
 import com.playcentric.model.playfellow.ImageLibPfmemberAssociation;
 import com.playcentric.model.playfellow.ImageLibPfmemberAssociationRepository;
-import com.playcentric.model.playfellow.ImageLibRepository;
 import com.playcentric.model.playfellow.PlayFellowMember;
 import com.playcentric.model.playfellow.PlayFellowMemberRepository;
 import com.playcentric.service.playfellow.PlayFellowMemberService;
@@ -87,7 +84,7 @@ public class PlayFellowMemberRestController {
 		// 找到對應的 playFellowId
 		PlayFellowMember playFellowMember = playFellowMemberService.getPlayFellowMemberById(playFellowId);
 
-		// 上傳新圖片並保存關聯
+		// 上傳新圖片 保存關聯
 		List<ImageLibPfmemberAssociation> associations = new ArrayList<>();
 		for (MultipartFile oneFile : file) {
 			ImageLib imageLib = new ImageLib();
