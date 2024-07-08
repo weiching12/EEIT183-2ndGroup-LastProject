@@ -1,6 +1,10 @@
 $(document).ready(function () {
   // 初始化 DataTable
-  let myTable = $("#propSellOrderTable").DataTable();
+  let myTable = $("#propSellOrderTable").DataTable({
+    language: {
+      info: "顯示第 _START_ 到第 _END_ 筆，共 _TOTAL_ 筆記錄", // 設置顯示的信息
+    },
+  });
 
   const selGameSub = document.querySelector("#selGameSub");
   selGameSub.addEventListener("click", (event) => {
@@ -25,6 +29,11 @@ $(document).ready(function () {
         console.log(err);
       });
   });
+
+  // 0.25秒後(等待game讀取完)自動點擊 selGameSub 按鈕一次
+  setTimeout(() => {
+    selGameSub.click();
+  }, 250);
 });
 
 function htmlMaker(data, table) {
