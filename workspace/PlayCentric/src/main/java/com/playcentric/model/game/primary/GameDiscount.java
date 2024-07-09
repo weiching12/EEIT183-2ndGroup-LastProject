@@ -3,6 +3,8 @@ package com.playcentric.model.game.primary;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.Id;
@@ -28,7 +30,8 @@ public class GameDiscount implements Serializable {
     private Integer gameId;
 
     private BigDecimal discountRate;
-
+    
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "gameId", referencedColumnName = "gameId", insertable = false, updatable = false)
     private Game game;

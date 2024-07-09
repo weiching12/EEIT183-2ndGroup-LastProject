@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -45,6 +46,7 @@ public class GameDiscountSet {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp endAt;
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "gameDiscountSet")
 	private List<GameDiscount> gameDiscounts;
 }
