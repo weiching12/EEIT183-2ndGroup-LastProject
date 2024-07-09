@@ -52,7 +52,7 @@ public class AnnoController {
 		return "redirect:/back/anno";
 	}
 	
-	//顯示所有公告
+	//顯示所有公告-首頁
 	@GetMapping("/")
 	public String showAllAnno(Model model) {
 		List<AnnouncementType> allType = aService.findAllType();

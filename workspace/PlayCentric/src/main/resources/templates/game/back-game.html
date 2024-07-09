@@ -25,11 +25,11 @@
                     <li class="leftmenuitem px-4">
                         <a href="#" class="block py-2.5 px-4 rounded ">會員管理</a>
                     </li>
-                    <li class="leftmenuitem px-4 left-selected">
-                        <a href="#" class="block py-2.5 px-4 rounded ">公告管理</a>
-                    </li>
                     <li class="leftmenuitem px-4">
-                        <a href="#" class="block py-2.5 px-4 rounded ">遊戲管理</a>
+                        <a th:href="@{/back/anno}" class="block py-2.5 px-4 rounded ">公告管理</a>
+                    </li>
+                    <li class="leftmenuitem px-4 left-selected">
+                        <a th:href="@{/back/game}" class="block py-2.5 px-4 rounded ">遊戲管理</a>
                     </li>
                     <li class="leftmenuitem px-4">
                         <a href="#" class="block py-2.5 px-4 rounded ">遊戲道具管理</a>
@@ -85,7 +85,7 @@
     </div>
 
     <div class="plus-btn">
-        <a th:href="@{/anno/getInsertAnno}" class="text-4xl text-black">+</a>
+        <a th:href="@{/game/getInsertGame}" class="text-4xl text-black">+</a>
     </div>
 
     <script>
