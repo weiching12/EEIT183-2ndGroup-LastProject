@@ -44,6 +44,14 @@ public class PropBuyOrderController {
 	@GetMapping("/prop/findAllpropBuyOrder")
 	@ResponseBody
 	public List<PropBuyOrderDto> finAllPropBuyOrder(@RequestParam("gameId") int gameId) {
-        return propBuyOrderService.findPropBuyOrders(gameId);
+		return propBuyOrderService.findPropBuyOrders(gameId);
 	}
+
+	// 根據OrderId找所有買單
+//	@GetMapping("/prop/findAllpropBuyOrderByOrderId")
+//	@ResponseBody
+//	public List<PropBuyOrderDto> findAllpropBuyOrderByOrderId(@RequestParam("orderId") int orderId) {
+//		return propBuyOrderService.findAllByOrderId(orderId);
+//	}
+
 }

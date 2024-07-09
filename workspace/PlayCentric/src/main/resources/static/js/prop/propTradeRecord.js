@@ -24,27 +24,37 @@ $(document).ready(function () {
       },
     })
       .then((res) => {
-        console.log(res.data); // 打印接收到的数据
+        res.data.forEach((order) => {
+          console.log("orderId: " + order.orderId);
+          console.log("propId: " + order.propId);
+          console.log("sellerMemId: " + order.sellerMemId);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // 根據遊戲Id找買單
+    axios({
+      method: "get",
+      url: "http://localhost:8080/PlayCentric/prop/findAllpropBuyOrder",
+      params: {
+        gameId: selectedGameId,
+      },
+    })
+      .then((res) => {
+        res.data.forEach((order) => {
+          console.log("buyerMemId: " + order.buyerMemId);
+          console.log("orderTime: " + order.orderTime);
+          console.log("quantity: " + order.quantity);
+          console.log("price: " + order.price);
+          console.log("paymentName: " + order.payment.paymentName);
+        });
       })
       .catch((err) => {
         console.log(err);
       });
   });
-
-  // 根據遊戲Id找買單
-  axios({
-    method: "get",
-    url: "http://localhost:8080/PlayCentric/prop/findAllpropSellOrder",
-    params: {
-      gameId: selectedGameId,
-    },
-  })
-    .then((res) => {
-      console.log(res.data); // 打印接收到的数据
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 
   // 0.25秒後(等待game讀取完)自動點擊 selGameSub 按鈕一次
   setTimeout(() => {

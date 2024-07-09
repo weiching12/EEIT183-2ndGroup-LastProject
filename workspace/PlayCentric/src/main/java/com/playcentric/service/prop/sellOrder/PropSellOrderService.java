@@ -2,6 +2,7 @@ package com.playcentric.service.prop.sellOrder;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,6 +17,8 @@ import com.playcentric.model.prop.sellOrder.PropSellOrderRepository;
 import jakarta.persistence.criteria.Order;
 
 import com.playcentric.model.prop.MemberPropInventory.MemberPropInventoryDto;
+import com.playcentric.model.prop.buyOrder.PropBuyOrder;
+import com.playcentric.model.prop.buyOrder.PropBuyOrderDto;
 
 @Service
 public class PropSellOrderService {
@@ -72,4 +75,12 @@ public class PropSellOrderService {
         order.setQuantity(newQuantity);
         propSellOrderRepo.save(order);
 		}
+    
+    // 根據orderId找賣單
+    public PropSellOrderDto findByOrderId(Integer orderId) {
+        Optional<PropSellOrder> optionalPropSellOrder = propSellOrderRepo.findById(orderId);
+        return optionalPropSellOrder.map(PropSellOrderDto::new).orElse(null);
+    }
+    
+
 }

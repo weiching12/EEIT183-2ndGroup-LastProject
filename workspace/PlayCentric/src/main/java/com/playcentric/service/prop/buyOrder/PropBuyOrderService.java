@@ -19,23 +19,26 @@ import com.playcentric.service.prop.sellOrder.PropSellOrderService;
 @Service
 public class PropBuyOrderService {
 
-    @Autowired
-    private PropSellOrderRepository propSellOrderRepo;
+	@Autowired
+	private PropSellOrderRepository propSellOrderRepo;
 
-    @Autowired
-    private PropBuyOrderRepository propBuyOrderRepo;
+	@Autowired
+	private PropBuyOrderRepository propBuyOrderRepo;
 
-    @Autowired
-    private PropSellOrderService propSellOrderService;
+	@Autowired
+	private PropSellOrderService propSellOrderService;
 
-    public List<PropBuyOrderDto> findPropBuyOrders(int gameId) {
-        List<PropBuyOrder> propBuyOrders = propBuyOrderRepo.findAllByGameId(gameId);
-        return propBuyOrders.stream()
-                            .map(PropBuyOrderDto::new)
-                            .collect(Collectors.toList());
-    }
+	public List<PropBuyOrderDto> findPropBuyOrders(int gameId) {
+		List<PropBuyOrder> propBuyOrders = propBuyOrderRepo.findAllByGameId(gameId);
+		return propBuyOrders.stream().map(PropBuyOrderDto::new).collect(Collectors.toList());
+	}
 
-    // 原有的購買方法保留
+//	public List<PropBuyOrderDto> findAllByOrderId(int orderId) {
+//		List<PropBuyOrder> propBuyOrders = propBuyOrderRepo.findAllByOrderId(orderId);
+//		return propBuyOrders.stream().map(PropBuyOrderDto::new).collect(Collectors.toList());
+//	}
+
+	// 原有的購買方法保留
 //    public void buyProp(int propSellOrderId, int buyQuantity, Member member, LocalDateTime orderTime, int price) {
 //        // 獲取銷售訂單
 //        PropSellOrder propSellOrder = propSellOrderRepo.findById(propSellOrderId)
