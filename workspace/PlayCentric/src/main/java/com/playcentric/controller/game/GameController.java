@@ -84,16 +84,16 @@ public class GameController {
 			}
 			newGame.setImageLibs(imgs);
 		}
+		//新增遊戲優惠
 		GameDiscount gameDiscount = new GameDiscount();
 		gameDiscount.setDiscountRate(discountRate);
 		gameDiscount.setGameId(newGame.getGameId());
 		gameDiscount.setGameDiscountId(discountId);
 		List<GameDiscount> gameDiscounts = new ArrayList<>();
-
 		gameDiscounts.add(gameDiscount);
 
 		game.setGameDiscounts(gameDiscounts);
-
+		
 		discountSet.setGameDiscounts(gameDiscounts);
 		gService.save(newGame);
 		return "redirect:/back/game";
