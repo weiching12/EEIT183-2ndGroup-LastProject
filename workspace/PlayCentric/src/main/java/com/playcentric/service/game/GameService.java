@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.playcentric.model.game.primary.Game;
+import com.playcentric.model.game.primary.GameDiscountSet;
+import com.playcentric.model.game.primary.GameDiscountSetRepository;
 import com.playcentric.model.game.primary.GameRepository;
 import com.playcentric.model.game.primary.GameTypeLib;
 import com.playcentric.model.game.primary.GameTypeLibRepository;
@@ -18,6 +20,9 @@ public class GameService {
 	
 	@Autowired
 	private GameTypeLibRepository tRepo;
+	
+	@Autowired
+	private GameDiscountSetRepository gdsRepo;
 	
 	//新增遊戲
 	public Game insert(Game game) {
@@ -61,6 +66,16 @@ public class GameService {
 	//獲取所有遊戲分類
 	public List<GameTypeLib> findAllType() {
 		return tRepo.findAll();
+	}
+	
+	//新增優惠活動
+	public GameDiscountSet addDiscountSet(GameDiscountSet discountSet) {
+		return gdsRepo.save(discountSet);
+	}
+	
+	//獲取所有優惠活動
+	public List<GameDiscountSet> findAllDiscountSets() {
+		return gdsRepo.findAll();
 	}
 	
 }

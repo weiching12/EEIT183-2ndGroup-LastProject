@@ -74,3 +74,11 @@ a {
 .text-input:focus {
     @apply outline-cyan-200 outline-2
 }
+
+.one-img {
+    @apply col-span-1 w-full h-48 bg-slate-400 rounded-md relative
+}
+
+.img-choose {
+    @apply col-span-1 w-full h-48 bg-slate-400 rounded-md
+}

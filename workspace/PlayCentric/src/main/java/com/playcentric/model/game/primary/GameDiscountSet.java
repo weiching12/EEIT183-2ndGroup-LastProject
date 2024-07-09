@@ -1,6 +1,7 @@
 package com.playcentric.model.game.primary;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,11 +40,11 @@ public class GameDiscountSet {
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy/MM/dd HH:mm:ss")
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
-	private LocalDateTime startAt;
+	private Timestamp startAt;
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy/MM/dd HH:mm:ss")
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
-	private LocalDateTime endAt;
+	private Timestamp endAt;
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "gameDiscountSet")
 	private List<GameDiscount> gameDiscounts;
 }

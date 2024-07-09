@@ -12,17 +12,23 @@
 
     <div class="flex justify-center">
         <div class="flex justify-center my-5 border-2 p-20 rounded-md">
-            <form action="#" method="post">
+            <form th:action="@{/game/setDiscount}" method="post">
                 <div class="space-y-4">
-                    <div class="flex overflow-hidden items-center">
-                        <label for="title" class="text-lg me-2">優惠名稱：</label> <input required type="text" name="title"
-                            id="title"
-                            class="w-96 px-4 py-2 border border-gray-300 focus:outline-2 focus:outline-cyan-200 rounded-lg"
-                            placeholder="請輸入標題">
-                    </div>
-                    <div class="flex overflow-hidden items-center">
-                        <label for="content" class="text-lg me-2">開始時間：</label>
 
+                    <div class="flex overflow-hidden items-center">
+                        <label for="gameDiscountName" class="text-lg me-2">優惠名稱：</label>
+                        <input required type="text" name="gameDiscountName" id="gameDiscountName" class="text-input"
+                            placeholder="請輸入名稱">
+                    </div>
+
+                    <div class="flex overflow-hidden items-center">
+                        <label for="startAt" class="text-lg me-2">開始時間：</label>
+                        <input type="datetime-local" id="startAt" name="startAt" class="text-input">
+                    </div>
+
+                    <div class="flex overflow-hidden items-center">
+                        <label for="endAt" class="text-lg me-2">結束時間：</label>
+                        <input type="datetime-local" id="endAt" name="endAt" class="text-input">
                     </div>
 
 
