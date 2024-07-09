@@ -70,15 +70,21 @@
 
                         <div class="showDiscount hidden">
                             <div class="flex flex-col">
-                                <label for="typeId" class="text-lg me-2">優惠選擇：</label>
+                                <label for="discountId" class="text-lg me-2">優惠選擇：</label>
                                 <select disabled class="w-96 border-2 focus:outline-2 focus:outline-cyan-200"
-                                    name="typeId" id="discount-chooser">
+                                    name="discountId" id="discount-chooser">
                                     <th:block th:each="discount:${allDiscount}">
                                         <option th:value="${discount.gameDiscountId}"
                                             th:text="${discount.gameDiscountName} + ${#dates.format(discount.startAt,'yyyy-MM-dd HH:mm')} + ' ~ ' + ${#dates.format(discount.endAt,'yyyy-MM-dd HH:mm')}">
                                         </option>
                                     </th:block>
                                 </select>
+
+                                <label for="discountRate" class="text-lg me-2">優惠折扣：</label>
+
+                                <input type="number" min="0" max="0.99" name="discountRate" id="discountRate"
+                                    step="0.01" class="text-input" />
+
                             </div>
                         </div>
                     </div>
@@ -92,10 +98,10 @@
 
 
                         <!-- 所有圖片元素 -->
-                        <div class="w-96 grid grid-cols-2 gap-3">
+                        <div class="w-96">
 
-                            <div class="imgs hidden">
-                                <label for="publisher" class="select-none text-lg me-2 mb-2">選擇圖片：</label>
+                            <label for="publisher" class="select-none text-lg me-2 mb-2">選擇圖片：</label>
+                            <div class="imgs hidden w-full">
                                 <!-- 新增圖片元素 -->
                                 <div class="img-choose">
                                     <div class="w-full h-full flex justify-center items-center  cursor-pointer">
@@ -132,14 +138,34 @@
         chooserAct();
         let imgcount = 0;
 
+        //不允許不選分類
+        document.querySelector('form').addEventListener('submit', e => {
+            let typeCheck = document.querySelectorAll(`input[name='typeId[]']`);
+            let isCheck = false;
+            typeCheck.forEach(elm => {
+                if (elm.checked) {
+                    isCheck = true;
+                }
+            });
+            updatefile();
 
+            if (isCheck == false) {
+                alert('分類尚未選擇');
+                e.preventDefault();
+            }
+
+        })
+
+        // 是否選擇圖片
         isUsePhoto.addEventListener('change', e => {
             if (e.target.checked) {
+                imgs.classList.add('grid', 'grid-cols-2', 'gap-3', 'w-full');
                 imgs.classList.remove('hidden');
                 photos.disabled = false;
             }
             else {
                 imgs.classList.add('hidden');
+                imgs.classList.remove('grid', 'grid-cols-2', 'gap-3', 'w-full');
                 photos.disabled = true;
             }
         })
@@ -160,13 +186,17 @@
         photos.addEventListener('change', e => {
             if (e.target.files.length + imgcount > 6) {
                 const message = document.createElement('div');
-                message.classList.add('col-span-2');
+                message.classList.add('col-span-2', 'message');
                 message.innerText = '檔案數量超過上限，請重新嘗試。';
                 imgs.append(message);
             }
             else {
+                const message = document.querySelector('.message');
+                if (message) {
+                    message.innerHTML = '';
+                }
                 imgChooser.remove();
-                imgHtmlMaker(e.target.files);
+                imgHtmlMaker(Array.from(e.target.files));
                 newImgChooser();
                 imgChooser = document.querySelector('.img-choose');
                 chooserAct();
@@ -181,7 +211,6 @@
         // 顯示選擇圖片
         function imgHtmlMaker(data) {
             imgcount += data.length;
-            console.log(imgcount);
             for (const file of data) {
                 filelist.push(file);
                 const newimg = document.createElement('div');
@@ -209,14 +238,12 @@
                             const index = filelist.indexOf(file);
                             filelist.splice(index, 1);
                             closer.closest('.one-img').remove();
-                            updatefile();
                         })
                         newimg.querySelector(`.img-view`).src = e.target.result;
                     }
                     reader.readAsDataURL(file);
                 }
                 imgs.append(newimg);
-                updatefile();
             }
         }
         // 新的選圖按鈕
@@ -239,9 +266,11 @@
         }
 
         function updatefile() {
-            const dataTransfer = new DataTransfer();
-            filelist.forEach(file => dataTransfer.items.add(file));
-            photos.files = dataTransfer.files;
+            let trans = new DataTransfer();
+
+            filelist.forEach(file => trans.items.add(file));
+
+            photos.files = trans.files;
         }
 
     </script>
