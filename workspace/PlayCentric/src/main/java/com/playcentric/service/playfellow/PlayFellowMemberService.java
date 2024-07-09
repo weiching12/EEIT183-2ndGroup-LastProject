@@ -28,10 +28,21 @@ public class PlayFellowMemberService {
 		return playFellowMemberRepository.findById(id).orElse(null);
 	}
 
-	// 添加伴遊成員
+	//add
     public PlayFellowMember addPlayFellowMember(PlayFellowMember playFellowMember) {
         return playFellowMemberRepository.save(playFellowMember);
     }
+    //找狀態1的pfmem	
+    public List<PlayFellowMember> findPlayFellowMemberBypfStatus(Byte pfstatus){
+    	return playFellowMemberRepository.findByPfstatus(pfstatus);
+    }
+    
+    //找同nickname
+    
+    public boolean isNicknameExists(String pfnickname) {
+        return playFellowMemberRepository.existsByPfnickname(pfnickname);
+    }
+    
 	
 	
 }

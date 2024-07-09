@@ -213,13 +213,7 @@
         const backBtn = document.getElementById('backBtn');
         const url = "http://localhost:8080/PlayCentric/playFellow/cms";
         backBtn.addEventListener('click', function () {
-            axios.get(url)
-                .then(res => {
-                    window.location.href = url;
-                })
-                .catch(err => {
-                    console.error('發生錯誤，重新再試', err);
-                })
+			window.location.href=url;
         })
 
         function submitFirstStep(event) {
@@ -268,6 +262,7 @@
 
             axios.post('/PlayCentric/playFellow/add', formData)
                 .then(response => {
+
                     console.log('成功創了伴遊者');
                     console.log('playFellowId:', response.data.playFellowId); // 顯示playFellowId
                     document.getElementById('firstStepForm').style.display = 'none';
