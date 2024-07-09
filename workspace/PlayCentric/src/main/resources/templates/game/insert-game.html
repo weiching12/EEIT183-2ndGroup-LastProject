@@ -81,45 +81,39 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="flex flex-col">
-                        <label for="publisher" class="select-none text-lg me-2 mb-2">加入圖片：</label>
+
+                        <div class="flex">
+                            <input type="checkbox" id="isUsePhoto">
+                            <label class="select-none ms-2" for="isUsePhoto">是否加入圖片</label>
+                        </div>
+
 
                         <!-- 所有圖片元素 -->
-                        <div class="w-96 grid grid-cols-2 gap-3 imgs">
+                        <div class="w-96 grid grid-cols-2 gap-3">
 
-                            <!-- 新增圖片元素 -->
-                            <div class="img-choose">
-                                <div class="w-full h-full flex justify-center items-center  cursor-pointer">
-                                    <span class="text-3xl select-none">+</span>
+                            <div class="imgs hidden">
+                                <label for="publisher" class="select-none text-lg me-2 mb-2">選擇圖片：</label>
+                                <!-- 新增圖片元素 -->
+                                <div class="img-choose">
+                                    <div class="w-full h-full flex justify-center items-center  cursor-pointer">
+                                        <span class="text-3xl select-none">+</span>
+                                    </div>
                                 </div>
+
+                                <input disabled accept="image/*" id="photos" class="hidden" type="file" name="photos"
+                                    multiple maxlength="6">
+
+
                             </div>
-
-                            <!-- 單一圖片元素 -->
-                            <!-- <div class="one-img"> -->
-                            <!-- 移除圖片按鈕 -->
-                            <!-- <div
-                                    class="absolute -top-2 -right-2 bg-black text-white rounded-full px-3 py-1 select-none cursor-pointer hover:bg-opacity-50 remove-img">
-                                    X
-                                </div>
-
-                                <div class="w-full h-full flex justify-center items-center  cursor-pointer">
-                                    <img th:src="@{/images/controller1.png}" alt="">
-                                </div>
-                            </div>
-
-                        </div> -->
-
-                            <input id="photos" class="hidden" type="file" name="photos" multiple maxlength="5">
-
-
                         </div>
 
                         <div class="flex items-center justify-center mt-3">
                             <button class="btn btn-sky rounded-md" type="submit">新增</button>
                         </div>
+
 
                     </div>
             </form>
@@ -127,6 +121,7 @@
     </div>
 
     <script>
+        const isUsePhoto = document.querySelector('#isUsePhoto');
         let filelist = [];
         const imgs = document.querySelector('.imgs');
         const photos = document.querySelector('#photos');
@@ -137,6 +132,17 @@
         chooserAct();
         let imgcount = 0;
 
+
+        isUsePhoto.addEventListener('change', e => {
+            if (e.target.checked) {
+                imgs.classList.remove('hidden');
+                photos.disabled = false;
+            }
+            else {
+                imgs.classList.add('hidden');
+                photos.disabled = true;
+            }
+        })
 
         // 是否參加優惠
         isUseDiscount.addEventListener('change', e => {
@@ -152,18 +158,30 @@
 
         // 選擇檔案事件
         photos.addEventListener('change', e => {
-            imgChooser.remove();
-            imgHtmlMaker(e.target.files);
-            newImgChooser();
-            imgChooser = document.querySelector('.img-choose');
-            chooserAct();
-            e.target.value = '';
-            console.log(filelist);
+            if (e.target.files.length + imgcount > 6) {
+                const message = document.createElement('div');
+                message.classList.add('col-span-2');
+                message.innerText = '檔案數量超過上限，請重新嘗試。';
+                imgs.append(message);
+            }
+            else {
+                imgChooser.remove();
+                imgHtmlMaker(e.target.files);
+                newImgChooser();
+                imgChooser = document.querySelector('.img-choose');
+                chooserAct();
+                e.target.value = '';
+            }
+            if (imgcount == 6) {
+                imgChooser.remove();
+            }
         })
 
 
         // 顯示選擇圖片
         function imgHtmlMaker(data) {
+            imgcount += data.length;
+            console.log(imgcount);
             for (const file of data) {
                 filelist.push(file);
                 const newimg = document.createElement('div');
@@ -174,7 +192,7 @@
                         X
                     </div>
 
-                    <div class="w-full h-full flex justify-center items-center  cursor-pointer">
+                    <div class="w-full h-full flex justify-center items-center select-none">
                         <img class="img-view" src="" alt="">
                     </div>
                 `;
@@ -184,11 +202,14 @@
                     reader.onload = function (e) {
                         const closer = newimg.querySelector('.remove-img');
                         closer.addEventListener('click', e => {
+                            if (imgcount == 6) {
+                                newImgChooser();
+                            }
+                            imgcount = imgcount - 1;
                             const index = filelist.indexOf(file);
                             filelist.splice(index, 1);
                             closer.closest('.one-img').remove();
                             updatefile();
-                            console.log(filelist);
                         })
                         newimg.querySelector(`.img-view`).src = e.target.result;
                     }

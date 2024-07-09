@@ -1,5 +1,6 @@
 package com.playcentric.controller.game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.playcentric.model.game.primary.Game;
 import com.playcentric.model.game.primary.GameDiscountSet;
 import com.playcentric.model.game.primary.GameTypeLib;
+import com.playcentric.service.game.GameDiscountSetService;
 import com.playcentric.service.game.GameService;
+import com.playcentric.service.game.GameTypeService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -25,6 +29,10 @@ public class GameController {
 	
 	@Autowired
 	private GameService gService;
+	@Autowired
+	private GameTypeService gtService;
+	@Autowired
+	private GameDiscountSetService gdsService;
 	
 	//遊戲管理後台
 	@GetMapping("/back/game")
@@ -35,8 +43,8 @@ public class GameController {
 	//輸入新增遊戲資料
 	@GetMapping("/game/getInsertGame")
 	public String getInsertGame(Model model) {
-		List<GameTypeLib> allType = gService.findAllType();
-		List<GameDiscountSet> allDiscount = gService.findAllDiscountSets();
+		List<GameTypeLib> allType = gtService.findAllType();
+		List<GameDiscountSet> allDiscount = gdsService.findAllDiscountSets();
 		model.addAttribute("allType",allType);
 		model.addAttribute("allDiscount",allDiscount);
 		return "game/insert-game";
@@ -45,8 +53,14 @@ public class GameController {
 	//進行新增遊戲
 	@PostMapping("/game/insertGame")
 	public String insertGame(@ModelAttribute Game game,
-			@RequestParam List<Integer> typeId) {
-		
+			@RequestParam List<Integer> typeId,
+			@RequestParam MultipartFile[] photos) 
+	{
+		List<GameTypeLib> types = new ArrayList<>();
+		for (Integer id : typeId) {
+			GameTypeLib type = gtService.findById(id);
+			types.add(type);
+		}
 		return "redirect:/back/game";
 	}
 	
