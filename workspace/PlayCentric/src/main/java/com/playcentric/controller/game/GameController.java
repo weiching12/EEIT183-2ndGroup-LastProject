@@ -66,8 +66,6 @@ public class GameController {
 		game.setGameTypeLibs(types);
 		//多對多關係需要創立
 		List<Game> games = new ArrayList<>();
-		//取得優惠活動
-		GameDiscountSet discountSet = gdsService.findById(discountId);
 		//資料庫建立遊戲
 		Game newGame = gService.save(game);
 		games.add(newGame);
@@ -84,25 +82,31 @@ public class GameController {
 			}
 			newGame.setImageLibs(imgs);
 		}
-		//新增遊戲優惠
-		GameDiscount gameDiscount = new GameDiscount();
-		gameDiscount.setDiscountRate(discountRate);
-		gameDiscount.setGameId(newGame.getGameId());
-		gameDiscount.setGameDiscountId(discountId);
-		List<GameDiscount> gameDiscounts = new ArrayList<>();
-		gameDiscounts.add(gameDiscount);
-
-		game.setGameDiscounts(gameDiscounts);
-		
-		discountSet.setGameDiscounts(gameDiscounts);
+		if (discountId != 0 && discountRate.compareTo(BigDecimal.ZERO) != 0) {
+			//取得優惠活動
+			GameDiscountSet discountSet = gdsService.findById(discountId);
+			//新增遊戲優惠
+			GameDiscount gameDiscount = new GameDiscount();
+			gameDiscount.setDiscountRate(discountRate);
+			gameDiscount.setGameId(newGame.getGameId());
+			gameDiscount.setGameDiscountId(discountId);
+			List<GameDiscount> gameDiscounts = new ArrayList<>();
+			gameDiscounts.add(gameDiscount);
+			game.setGameDiscounts(gameDiscounts);
+			discountSet.setGameDiscounts(gameDiscounts);
+		}
+		//重新存入帶有圖片與優惠的遊戲
 		gService.save(newGame);
 		return "redirect:/back/game";
 	}
+	
+	
 	// 輸入優惠活動資料
 	@GetMapping("/game/getSetDiscount")
 	public String getSetDiscount() {
 		return "game/set-discount";
 	}
+	
 	// 新增優惠活動
 	@PostMapping("/game/setDiscount")
 	public String setDiscount(@ModelAttribute GameDiscountSet discountSet) {

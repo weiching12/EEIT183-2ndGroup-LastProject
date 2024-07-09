@@ -63,16 +63,13 @@
                     </div>
 
                     <div class="flex flex-col overflow-hidden">
-                        <div class="flex">
-                            <input type="checkbox" id="isUseDiscount">
-                            <label class="select-none ms-2" for="isUseDiscount">是否參加優惠</label>
-                        </div>
 
-                        <div class="showDiscount hidden">
+                        <div class="showDiscount">
                             <div class="flex flex-col">
                                 <label for="discountId" class="text-lg me-2">優惠選擇：</label>
-                                <select disabled class="w-96 border-2 focus:outline-2 focus:outline-cyan-200"
-                                    name="discountId" id="discount-chooser">
+                                <select class="w-96 border-2 focus:outline-2 focus:outline-cyan-200" name="discountId"
+                                    id="discount-chooser">
+                                    <option value="0">無</option>
                                     <th:block th:each="discount:${allDiscount}">
                                         <option th:value="${discount.gameDiscountId}"
                                             th:text="${discount.gameDiscountName} + ${#dates.format(discount.startAt,'yyyy-MM-dd HH:mm')} + ' ~ ' + ${#dates.format(discount.endAt,'yyyy-MM-dd HH:mm')}">
@@ -80,10 +77,14 @@
                                     </th:block>
                                 </select>
 
-                                <label for="discountRate" class="text-lg me-2">優惠折扣：</label>
+                                <div class="rateset hidden">
+                                    <div class="flex flex-col">
+                                        <label for="discountRate" class="text-lg me-2">優惠折扣：</label>
 
-                                <input type="number" min="0" max="0.99" name="discountRate" id="discountRate"
-                                    step="0.01" class="text-input" />
+                                        <input type="number" min="0" max="0.99" name="discountRate" id="discountRate"
+                                            value="0" step="0.01" class="text-input" />
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
@@ -109,8 +110,8 @@
                                     </div>
                                 </div>
 
-                                <input disabled accept="image/*" id="photos" class="hidden" type="file" name="photos"
-                                    multiple maxlength="6">
+                                <input accept="image/*" id="photos" class="hidden" type="file" name="photos" multiple
+                                    maxlength="6">
 
 
                             </div>
@@ -133,10 +134,21 @@
         const photos = document.querySelector('#photos');
         const showDiscount = document.querySelector('.showDiscount');
         const discountChooser = document.querySelector('#discount-chooser');
-        const isUseDiscount = document.querySelector('#isUseDiscount');
         let imgChooser = document.querySelector('.img-choose');
         chooserAct();
         let imgcount = 0;
+
+        discountChooser.addEventListener('change', e => {
+            const rateset = document.querySelector('.rateset');
+            if (discountChooser.value !== (0 || '')) {
+                rateset.classList.remove('hidden');
+            }
+            else {
+                const rateinput = document.querySelector('#discountRate');
+                rateset.classList.add('hidden');
+                rateinput.value = 0;
+            }
+        })
 
         //不允許不選分類
         document.querySelector('form').addEventListener('submit', e => {
@@ -161,26 +173,13 @@
             if (e.target.checked) {
                 imgs.classList.add('grid', 'grid-cols-2', 'gap-3', 'w-full');
                 imgs.classList.remove('hidden');
-                photos.disabled = false;
             }
             else {
                 imgs.classList.add('hidden');
                 imgs.classList.remove('grid', 'grid-cols-2', 'gap-3', 'w-full');
-                photos.disabled = true;
             }
         })
 
-        // 是否參加優惠
-        isUseDiscount.addEventListener('change', e => {
-            if (e.target.checked) {
-                showDiscount.classList.remove('hidden');
-                discountChooser.disabled = false;
-            }
-            else {
-                showDiscount.classList.add('hidden');
-                discountChooser.disabled = true;
-            }
-        })
 
         // 選擇檔案事件
         photos.addEventListener('change', e => {
