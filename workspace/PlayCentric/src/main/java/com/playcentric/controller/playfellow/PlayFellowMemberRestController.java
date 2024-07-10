@@ -30,6 +30,7 @@ import com.playcentric.model.playfellow.PlayFellowMemberRepository;
 import com.playcentric.service.playfellow.PlayFellowMemberService;
 
 import jakarta.transaction.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class PlayFellowMemberRestController {
@@ -49,9 +50,6 @@ public class PlayFellowMemberRestController {
 	@Autowired
 	MemberRepository memberRepository;
 
-	
-	
-	
 	@PostMapping("/playFellow/add") // 按下新增
 	public ResponseEntity<Map<String, Object>> addPlayFellowMember(@ModelAttribute("members") Member member,
 			@ModelAttribute("playFellowMember") PlayFellowMember playFellowMember) {
@@ -67,15 +65,13 @@ public class PlayFellowMemberRestController {
 
 		PlayFellowMember savedPlayFellowMember = playFellowMemberService.addPlayFellowMember(playFellowMember);
 
-		//把playFellowId的編號丟到前面去
+		// 把playFellowId的編號丟到前面去
 		Map<String, Object> response = new HashMap<>();
 		response.put("playFellowId", savedPlayFellowMember.getPlayFellowId());
 		response.put("message", "新增成功");
 
 		return ResponseEntity.ok(response);
 	}
-	
-	
 
 	@PostMapping("/playFellow/Images/add")
 	public String addImageFile(@RequestParam("file") MultipartFile[] file,
@@ -153,7 +149,7 @@ public class PlayFellowMemberRestController {
 	}
 
 	@PostMapping("/playFellow/updateMember/save")
-	public ResponseEntity<String> savePlayFellowMemberMsg(@RequestParam("pfnickname") String pfnickname,
+	public String savePlayFellowMemberMsg(@RequestParam("pfnickname") String pfnickname,
 			@RequestParam("pfdescription") String pfdescription, @RequestParam("playFellowId") Integer playFellowId,
 			@RequestParam("pfstatus") Byte pfstatus) {
 
@@ -165,10 +161,8 @@ public class PlayFellowMemberRestController {
 			playFellowMember.setPfdescription(pfdescription);
 			playFellowMember.setPfstatus(pfstatus);
 			playFellowMemberRepository.save(playFellowMember);
-			return ResponseEntity.ok("更新成功");
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("伴遊者未找到");
 		}
+		return "";
 	}
 
 	@DeleteMapping("/playFellow/deleteMember/{playFellowId}")
@@ -199,6 +193,17 @@ public class PlayFellowMemberRestController {
 			// 如果 playFellowId 為空，返回錯誤訊息
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無效的請求，playFellowId 為空");
 		}
+	}
+
+	@PostMapping("/reviewPfstatus")
+	public String reviewPfstatus(@RequestParam("playFellowId") Integer playFellowId,
+			@RequestParam("pfstatus") Byte pfstatus) {
+		Optional<PlayFellowMember> optPlayFellowMember = playFellowMemberRepository.findById(playFellowId);
+		PlayFellowMember playFellowMember = optPlayFellowMember.get();
+		playFellowMember.setPfstatus(pfstatus);
+		playFellowMemberRepository.save(playFellowMember);
+
+		return "";
 	}
 
 }

@@ -109,7 +109,7 @@ public class PlayFellowMemberController {
 		}
 	}
 	
-	@GetMapping("/playFeloow/reviewpfMember")
+	@GetMapping("/playFellow/reviewpfMember")
 	public String postMethodName(Model model) {
 		
 		Byte pfstatus = 1;
