@@ -52,28 +52,35 @@
                     <table class="w-full border-collapse shadow">
                         <thead>
                             <tr>
-                                <th class="text-center w-1/4 border">標題</th>
-                                <th class="text-center w-1/6 border">創建日期</th>
-                                <th class="text-center w-2/6 border">最後編輯時間</th>
-                                <th class="text-center w-1/4 border">操作</th>
+                                <th class="text-center w-2/12 border">遊戲名稱</th>
+                                <th class="text-center w-1/12 border">價格</th>
+                                <th class="text-center w-3/12 border">發布時間</th>
+                                <th class="text-center w-1/12 border">開發者</th>
+                                <th class="text-center w-1/12 border">發行商</th>
+                                <th class="text-center w-1/12 border">評價</th>
+                                <th class="text-center w-3/12 border">操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <th:block th:each="anno:${allAnno}">
+                            <th:block th:each="game:${allGame}">
                                 <tr>
-                                    <td class="border p-3 title">
-                                        <a th:href="@{/anno/showOneAnno(annoId=${anno.annoId})}"
-                                            th:text="[ + ${anno.announcementType.annoTypeName} + ] + ${anno.title}"
-                                            class="text-center"></a>
+                                    <td class="border p-3 gameName">
+                                        <a href="#" th:text="${game.gameName}" class="text-center"></a>
                                     </td>
-                                    <td th:text="${anno.createAt}" class="text-center border p-3 createAt"></td>
-                                    <td th:text="${#dates.format(anno.lastEditAt,'yyyy-MM-dd HH:mm:ss')}"
-                                        class="text-center border p-3 lastEditAt"></td>
+                                    <td th:text="${game.price}" class="text-center border p-3 price"></td>
+                                    <td th:text="${game.releaseAt}" class="text-center border p-3 releaseAt"></td>
+                                    <td th:text="${game.developer}" class="text-center border p-3 developer"></td>
+                                    <td th:text="${game.publisher}" class="text-center border p-3 publisher"></td>
+                                    <td th:if="${game.totalReviews != 0}"
+                                        th:text="${game.totalScore / game.totalReviews}"
+                                        class="text-center border p-3 score"></td>
+                                    <td th:if="${game.totalReviews == 0}" class="text-center border p-3 score">0</td>
                                     <td class="text-center border p-3">
-                                        <a th:href="@{/anno/getUpdatAnno(annoId=${anno.annoId})}"
-                                            class="btn btn-sky rounded-md me-2 block md:inline">修改</a>
-                                        <a th:href="@{/anno/deleteAnno(annoId=${anno.annoId})}"
-                                            class="btn btn-danger rounded-md me-2 block md:inline">刪除</a>
+                                        <a href="#" class="btn btn-sky rounded-md me-2 block md:inline">修改</a>
+                                        <a th:if="${!game.isShow}" href="#"
+                                            class="btn btn-green rounded-md me-2 block md:inline">上架</a>
+                                        <a th:if="${game.isShow}" href="#"
+                                            class="btn btn-danger rounded-md me-2 block md:inline">下架</a>
                                     </td>
                                 </tr>
                             </th:block>

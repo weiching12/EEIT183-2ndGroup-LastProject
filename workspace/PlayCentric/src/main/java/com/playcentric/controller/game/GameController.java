@@ -38,7 +38,9 @@ public class GameController {
 
 	// 遊戲管理後台
 	@GetMapping("/back/game")
-	public String backGame() {
+	public String backGame(Model model) {
+		List<Game> all = gService.findAll();
+		model.addAttribute("allGame",all);
 		return "game/back-game";
 	}
 

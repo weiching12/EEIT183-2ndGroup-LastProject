@@ -743,6 +743,9 @@ video {
 .w-2\/6 {
   width: 33.333333%;
 }
+.w-3\/12 {
+  width: 25%;
+}
 .w-4 {
   width: 1rem;
 }
@@ -1073,6 +1076,18 @@ a {
   cursor: pointer;
   --tw-bg-opacity: 1;
   background-color: rgb(14 165 233 / var(--tw-bg-opacity));
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.btn-green {
+  cursor: pointer;
+  --tw-bg-opacity: 1;
+  background-color: rgb(101 163 13 / var(--tw-bg-opacity));
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 0.75rem;

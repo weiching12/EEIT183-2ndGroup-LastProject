@@ -30,6 +30,10 @@ a {
     @apply text-white py-2 px-3 cursor-pointer bg-sky-500
 }
 
+.btn-green {
+    @apply text-white py-2 px-3 cursor-pointer bg-lime-600
+}
+
 .btn-danger {
     @apply text-white py-2 px-3 cursor-pointer bg-red-700
 }
