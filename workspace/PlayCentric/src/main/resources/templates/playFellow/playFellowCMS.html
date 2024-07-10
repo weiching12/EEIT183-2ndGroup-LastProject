@@ -23,7 +23,7 @@
 		}
 
 		.table thead th {
-			background-color: #bcdde8;
+			background-color: #CBD5E1;
 			color: #ADD8E6;
 			color: rgba(29, 18, 18, 0.995);
 
@@ -40,7 +40,8 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-	<div th:replace="~{layout/nav.html}"></div>
+<!-- 	<div th:replace="~{layout/nav.html}"></div> -->
+	<div th:replace="~{/playFellow/sideBar}"></div>
 
 	<!-- 	<nav id="menu" class="bg-secondary-subtle shadow collapse collapse-horizontal"> -->
 	<!-- 		<div class="w250px"> -->
@@ -112,11 +113,11 @@
 					data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
 					aria-selected="true">伴遊者列表</button>
 			</li>
-			<li class="nav-item" role="presentation">
-				<button class="nav-link text-secondary" id="profile-tab" data-bs-toggle="tab"
-					data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane"
-					aria-selected="false">交易綜覽</button>
-			</li>
+<!-- 			<li class="nav-item" role="presentation"> -->
+<!-- 				<button class="nav-link text-secondary" id="profile-tab" data-bs-toggle="tab" -->
+<!-- 					data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" -->
+<!-- 					aria-selected="false">交易綜覽</button> -->
+<!-- 			</li> -->
 		</ul>
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade border border-top-0 rounded-2 rounded-top-0" id="home-tab-pane" role="tabpanel"
@@ -218,6 +219,7 @@
 	<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script th:src="@{/js/layout/nav.js}"></script>
 
 	<script>
 		$(document).on('click', '#reviewPfMember', function () {
@@ -308,7 +310,6 @@
 		// 		});
 
 	</script>
-	<script th:src="@{/js/layout/nav.js}"></script>
 
 </body>
 
