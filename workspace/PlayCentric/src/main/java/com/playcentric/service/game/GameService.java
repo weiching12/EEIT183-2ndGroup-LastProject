@@ -14,8 +14,9 @@ public class GameService {
 	@Autowired
 	private GameRepository gRepo;
 	
+	
 	//新增遊戲
-	public Game insert(Game game) {
+	public Game save(Game game) {
 		return gRepo.save(game); 
 	}
 	
@@ -46,5 +47,15 @@ public class GameService {
 		origin.setReleaseAt(game.getReleaseAt());
 		return gRepo.save(origin);
 	}
+	
+	//刪除以id找到的遊戲
+	public void delete(Integer id) {
+		Game game = findById(id);
+		gRepo.delete(game);
+	}
+	
+	
+	
+	
 	
 }
