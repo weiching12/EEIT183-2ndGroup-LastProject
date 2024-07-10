@@ -4,11 +4,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>後台資料管理</title>
+	<!-- 	<title>後台資料管理</title> -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/output.css}">
+
 	<style>
 		html,
 		body {
@@ -22,7 +24,9 @@
 
 		.table thead th {
 			background-color: #bcdde8;
-			/* color: #ADD8E6; */
+			color: #ADD8E6;
+			color: rgba(29, 18, 18, 0.995);
+
 		}
 
 		.delete-icon {
@@ -35,70 +39,72 @@
 	</style>
 </head>
 
-<body class="d-flex">
-	<nav id="menu" class="bg-secondary-subtle shadow collapse collapse-horizontal">
-		<div class="w250px">
-			<div class="hstack">
-				<button type="button" class="btn-close ms-auto" data-bs-toggle="collapse"
-					data-bs-target="#menu"></button>
-			</div>
+<body class="d-flex flex-column min-vh-100">
+	<div th:replace="~{layout/nav.html}"></div>
 
-			<div class="d-grid my-1 px-3">
-				<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1"
-					aria-expanded="false" aria-controls="collapse1">伴遊功能</button>
-				<div class="collapse" id="collapse1">
-					<div class="card card-body gap-1 p-1 rounded-0 rounded-bottom">
-						<div class="btn btn-secondary btn-sm" id="reviewPfMember">審核伴遊資格</div>
-						<div class="btn btn-secondary btn-sm" id="addPfMember">加入伴遊</div>
-					</div>
-				</div>
-			</div>
+	<!-- 	<nav id="menu" class="bg-secondary-subtle shadow collapse collapse-horizontal"> -->
+	<!-- 		<div class="w250px"> -->
+	<!-- 			<div class="hstack"> -->
+	<!-- 				<button type="button" class="btn-close ms-auto" data-bs-toggle="collapse" -->
+	<!-- 					data-bs-target="#menu"></button> -->
+	<!-- 			</div> -->
 
-			<div class="d-grid my-1 px-3">
-				<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2"
-					aria-expanded="false" aria-controls="collapse2">遊戲商城</button>
-				<div class="collapse" id="collapse2">
-					<div class="card card-body gap-1 p-1 rounded-0 rounded-bottom">
-						<div class="btn btn-secondary btn-sm">購物車</div>
-					</div>
-				</div>
-			</div>
-			<div class="d-grid my-1 px-3">
-				<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3"
-					aria-expanded="false" aria-controls="collapse3">遊戲道具交易</button>
-				<div class="collapse" id="collapse3">
-					<div class="card card-body gap-1 p-1 rounded-0 rounded-bottom">
-						<div class="btn btn-secondary btn-sm">遊戲道具</div>
-						<div class="btn btn-secondary btn-sm">交易綜覽</div>
-					</div>
-				</div>
-			</div>
-			<div class="d-grid my-1 px-3">
-				<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4"
-					aria-expanded="false" aria-controls="collapse4">討論區</button>
-				<div class="collapse" id="collapse4">
-					<div class="card card-body gap-1 p-1 rounded-0 rounded-bottom">
-						<div class="btn btn-secondary btn-sm">討論區列表</div>
-					</div>
-				</div>
-			</div>
-			<div class="d-grid my-1 px-3">
-				<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5"
-					aria-expanded="false" aria-controls="collapse5">活動辦理</button>
-				<div class="collapse" id="collapse5">
-					<div class="card card-body gap-1 p-1 rounded-0 rounded-bottom">
-						<div class="btn btn-secondary btn-sm">線上活動</div>
-						<div class="btn btn-secondary btn-sm">線下活動</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</nav>
+	<!-- 			<div class="d-grid my-1 px-3"> -->
+	<!-- 				<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" -->
+	<!-- 					aria-expanded="false" aria-controls="collapse1">伴遊功能</button> -->
+	<!-- 				<div class="collapse" id="collapse1"> -->
+	<!-- 					<div class="card card-body gap-1 p-1 rounded-0 rounded-bottom"> -->
+	<!-- 						<div class="btn btn-secondary btn-sm" id="reviewPfMember">審核伴遊資格</div> -->
+	<!-- 						<div class="btn btn-secondary btn-sm" id="addPfMember">加入伴遊</div> -->
+	<!-- 					</div> -->
+	<!-- 				</div> -->
+	<!-- 			</div> -->
+
+	<!-- 			<div class="d-grid my-1 px-3"> -->
+	<!-- 				<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" -->
+	<!-- 					aria-expanded="false" aria-controls="collapse2">遊戲商城</button> -->
+	<!-- 				<div class="collapse" id="collapse2"> -->
+	<!-- 					<div class="card card-body gap-1 p-1 rounded-0 rounded-bottom"> -->
+	<!-- 						<div class="btn btn-secondary btn-sm">購物車</div> -->
+	<!-- 					</div> -->
+	<!-- 				</div> -->
+	<!-- 			</div> -->
+	<!-- 			<div class="d-grid my-1 px-3"> -->
+	<!-- 				<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" -->
+	<!-- 					aria-expanded="false" aria-controls="collapse3">遊戲道具交易</button> -->
+	<!-- 				<div class="collapse" id="collapse3"> -->
+	<!-- 					<div class="card card-body gap-1 p-1 rounded-0 rounded-bottom"> -->
+	<!-- 						<div class="btn btn-secondary btn-sm">遊戲道具</div> -->
+	<!-- 						<div class="btn btn-secondary btn-sm">交易綜覽</div> -->
+	<!-- 					</div> -->
+	<!-- 				</div> -->
+	<!-- 			</div> -->
+	<!-- 			<div class="d-grid my-1 px-3"> -->
+	<!-- 				<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" -->
+	<!-- 					aria-expanded="false" aria-controls="collapse4">討論區</button> -->
+	<!-- 				<div class="collapse" id="collapse4"> -->
+	<!-- 					<div class="card card-body gap-1 p-1 rounded-0 rounded-bottom"> -->
+	<!-- 						<div class="btn btn-secondary btn-sm">討論區列表</div> -->
+	<!-- 					</div> -->
+	<!-- 				</div> -->
+	<!-- 			</div> -->
+	<!-- 			<div class="d-grid my-1 px-3"> -->
+	<!-- 				<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" -->
+	<!-- 					aria-expanded="false" aria-controls="collapse5">活動辦理</button> -->
+	<!-- 				<div class="collapse" id="collapse5"> -->
+	<!-- 					<div class="card card-body gap-1 p-1 rounded-0 rounded-bottom"> -->
+	<!-- 						<div class="btn btn-secondary btn-sm">線上活動</div> -->
+	<!-- 						<div class="btn btn-secondary btn-sm">線下活動</div> -->
+	<!-- 					</div> -->
+	<!-- 				</div> -->
+	<!-- 			</div> -->
+	<!-- 		</div> -->
+	<!-- 	</nav> -->
 	<main class="w-100 p-3">
-		<button class="btn btn-dark mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
-			aria-expanded="false" aria-controls="menu">
-			<i class="fa-sharp fa-solid fa-bars-staggered"></i>
-		</button>
+		<!-- 		<button class="btn btn-dark mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#menu" -->
+		<!-- 			aria-expanded="false" aria-controls="menu"> -->
+		<!-- 			<i class="fa-sharp fa-solid fa-bars-staggered"></i> -->
+		<!-- 		</button> -->
 
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation">
@@ -289,18 +295,21 @@
 			});
 		});
 
-		document.addEventListener('DOMContentLoaded', function () {
-			const addPfMemberBtn = document.querySelector('#addPfMember');
+		// 		document.addEventListener('DOMContentLoaded', function () {
+		// 			const addPfMemberBtn = document.querySelector('#addPfMember');
 
-			if (addPfMemberBtn) {
-				addPfMemberBtn.addEventListener('click', function () {
-					const playFellowId = '10'; // 之後要換上當下的會員身分 替換成實際的伴遊者ID
-					const url = `http://localhost:8080/PlayCentric/playFellow/memId/${playFellowId}`;
-					window.location.href = url;
-				});
-			}
-		});
+		// 			if (addPfMemberBtn) {
+		// 				addPfMemberBtn.addEventListener('click', function () {
+		// 					const memberId = '10'; // 之後要換上當下的會員身分 替換成實際的伴遊者ID
+		// 					const url = `http://localhost:8080/PlayCentric/playFellow/memId/${memberId}`;
+		// 					window.location.href = url;
+		// 				});
+		// 			}
+		// 		});
+
 	</script>
+	<script th:src="@{/js/layout/nav.js}"></script>
+
 </body>
 
 </html>
